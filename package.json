@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tact --config ./tact.config.json",
     "test": "jest",
-    "deploy": "ts-node ./sources/contract.deploy.ts"
+    "deploy": "ts-node ./src/contract.deploy.ts"
   },
   "dependencies": {
     "@types/jest": "^29.2.4",

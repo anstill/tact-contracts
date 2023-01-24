@@ -21,8 +21,8 @@ To launch your own contract you should:
 {
 "projects": [{
     "name": "sample",
-    "path": "./sources/contract.tact",
-    "output": "./sources/output"
+    "path": "./src/contract.tact",
+    "output": "./src/output"
 }]
 }
 ```
