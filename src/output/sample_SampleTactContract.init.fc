@@ -8,20 +8,18 @@ builder __tact_store_address(builder b, slice address) inline {
     return b;
 }
 
-builder __gen_write_SampleTactContract(builder build_0, (slice, int) v) inline_ref {
-    var (v'owner, v'counter) = v;
+builder __gen_write_SampleTactContract(builder build_0, (slice) v) inline_ref {
+    var (v'owner) = v;
     build_0 = __tact_store_address(build_0, v'owner);
-    build_0 = build_0.store_uint(v'counter, 32);
     return build_0;
 }
 
 cell $__gen_SampleTactContract_init(cell sys', slice $owner) {
-    var (($self'owner, $self'counter)) = (null(), null());
+    var (($self'owner)) = (null());
     $self'owner = $owner;
-    $self'counter = 0;
     var b' = begin_cell();
     b' = b'.store_ref(sys');
-    b' = __gen_write_SampleTactContract(b', ($self'owner, $self'counter));
+    b' = __gen_write_SampleTactContract(b', ($self'owner));
     return b'.end_cell();
 }
 

@@ -1,38 +1,33 @@
 import "@stdlib/deploy";
+import "@stdlib/ownable";
 
-message Add {
-    amount: Int as uint32;
+struct Responce {
+    sender: Address;
+    msg: Slice;
 }
 
-contract SampleTactContract with Deployable {
+
+contract SampleTactContract with Deployable, Ownable {
 
     owner: Address;
-    counter: Int as uint32;
 
     init(owner: Address) {
         self.owner = owner;
-        self.counter = 0;
     }
 
-    fun add(v: Int) {
-        
-        // Check sender
+    receive(msg: Slice) {
         let ctx: Context = context();
-        require(ctx.sender == self.owner, "Invalid sender");
-        
-        // Update counter
-        self.counter = (self.counter + v);
-    }
 
-    receive(msg: Add) {
-        self.add(msg.amount);
-    }
-
-    receive("increment") {
-        self.add(1);
-    }
-
-    get fun counter(): Int {
-        return self.counter;
+        if(ctx.sender != self.owner ) {
+            let to: Address = self.owner;
+            
+            send(SendParameters{
+                to: to,
+                value: 0, 
+                mode: SendRemainingValue + SendIgnoreErrors, 
+                bounce: true, 
+                body: Responce{ sender: ctx.sender, msg: msg }.toCell()
+            });
+        }
     }
 }

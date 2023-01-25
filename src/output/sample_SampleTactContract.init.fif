@@ -15,16 +15,13 @@ PROGRAM{
     STSLICER
   }>
   __gen_write_SampleTactContract PROCREF:<{
-    -ROT
     __tact_store_address INLINECALLDICT
-    32 STU
   }>
   $__gen_SampleTactContract_init PROC:<{
-    0 PUSHINT
-    s0 s2 XCHG
+    SWAP
     NEWC
     STREF
-    s0 s2 XCHG
+    SWAP
     __gen_write_SampleTactContract INLINECALLDICT
     ENDC
   }>

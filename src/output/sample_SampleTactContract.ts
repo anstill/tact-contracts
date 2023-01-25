@@ -250,50 +250,94 @@ function dictValueParserDeployOk(): DictionaryValue<DeployOk> {
         }
     }
 }
-export type Add = {
-    $$type: 'Add';
-    amount: bigint;
+export type ChangeOwner = {
+    $$type: 'ChangeOwner';
+    newOwner: Address;
 }
 
-export function storeAdd(src: Add) {
+export function storeChangeOwner(src: ChangeOwner) {
     return (builder: Builder) => {
         let b_0 = builder;
-        b_0.storeUint(2278832834, 32);
-        b_0.storeUint(src.amount, 32);
+        b_0.storeUint(256331011, 32);
+        b_0.storeAddress(src.newOwner);
     };
 }
 
-export function loadAdd(slice: Slice) {
+export function loadChangeOwner(slice: Slice) {
     let sc_0 = slice;
-    if (sc_0.loadUint(32) !== 2278832834) { throw Error('Invalid prefix'); }
-    let _amount = sc_0.loadUintBig(32);
-    return { $$type: 'Add' as const, amount: _amount };
+    if (sc_0.loadUint(32) !== 256331011) { throw Error('Invalid prefix'); }
+    let _newOwner = sc_0.loadAddress();
+    return { $$type: 'ChangeOwner' as const, newOwner: _newOwner };
 }
 
-function loadTupleAdd(source: TupleReader) {
-    let _amount = source.readBigNumber();
-    return { $$type: 'Add' as const, amount: _amount };
+function loadTupleChangeOwner(source: TupleReader) {
+    let _newOwner = source.readAddress();
+    return { $$type: 'ChangeOwner' as const, newOwner: _newOwner };
 }
 
-function storeTupleAdd(source: Add) {
+function storeTupleChangeOwner(source: ChangeOwner) {
     let builder = new TupleBuilder();
-    builder.writeNumber(source.amount);
+    builder.writeAddress(source.newOwner);
     return builder.build();
 }
 
-function dictValueParserAdd(): DictionaryValue<Add> {
+function dictValueParserChangeOwner(): DictionaryValue<ChangeOwner> {
     return {
         serialize: (src, buidler) => {
-            buidler.storeRef(beginCell().store(storeAdd(src)).endCell());
+            buidler.storeRef(beginCell().store(storeChangeOwner(src)).endCell());
         },
         parse: (src) => {
-            return loadAdd(src.loadRef().beginParse());
+            return loadChangeOwner(src.loadRef().beginParse());
+        }
+    }
+}
+export type Responce = {
+    $$type: 'Responce';
+    sender: Address;
+    msg: Cell;
+}
+
+export function storeResponce(src: Responce) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeAddress(src.sender);
+        b_0.storeRef(src.msg);
+    };
+}
+
+export function loadResponce(slice: Slice) {
+    let sc_0 = slice;
+    let _sender = sc_0.loadAddress();
+    let _msg = sc_0.loadRef();
+    return { $$type: 'Responce' as const, sender: _sender, msg: _msg };
+}
+
+function loadTupleResponce(source: TupleReader) {
+    let _sender = source.readAddress();
+    let _msg = source.readCell();
+    return { $$type: 'Responce' as const, sender: _sender, msg: _msg };
+}
+
+function storeTupleResponce(source: Responce) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.sender);
+    builder.writeSlice(source.msg);
+    return builder.build();
+}
+
+function dictValueParserResponce(): DictionaryValue<Responce> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeResponce(src)).endCell());
+        },
+        parse: (src) => {
+            return loadResponce(src.loadRef().beginParse());
         }
     }
 }
 async function SampleTactContract_init(owner: Address) {
-    const __init = 'te6ccgEBBwEANAABFP8A9KQT9LzyyAsBAgFiAgMCAs0EBQAJoUrd4AkAAdQBEdOAFkZgFtnmTAYAClnPFssf';
-    const __code = 'te6ccgECIwEAAlYAART/APSkE/S88sgLAQIBYgIDAgLLBAUCAWofIAIBIAYHAgFIEBECAdQICQAV/KP4DlAHA4AOUAQElTt+3Ah10nCH5UwINcLH94C0NMDAXGwwAGRf5Fw4gH6QCJQZm8E+GECkVvgIIIQh9Q6wrqPjDDbPALbPDES8BTbPOAgghCUapi2uoCEKDgsACwgbvLQgIAAg0x8BghCH1DrCuvLggdMfAQQij4ww2zwC2zwxEvAW2zzgwAAhDA4NACDTHwGCEJRqmLa68uCB0z8BAnCPMPkBgvDE+NcjEu3971t77HgzvbsWLRURvXipEq7Q8mN69lVyrrqPCNs88BXbPNsx4JEw4vLAgiEOARbI+EIBzFnbPMntVA8AClnPFssfAgEgEhMCASAZGgIBIBQVAgEgFxgB9zIcQHKAVAH8A9wAcoCUAXPFlAD+gJwAcpoI26zJW6zsY49f/APyHDwD3DwDyRus5l/8A8E8AFQBMyVNANw8A/iJG6zmX/wDwTwAVAEzJU0A3DwD+Jw8A8Cf/APAslYzJYzMwFw8A/iIW6zmH/wDwHwAQHMlDFw8A/iyQGAWACU+EFvJBAjXwN/AnCAQlhtbfAQgAAT7AAAfPhBbyRbgRFNMiTHBfL0oIAADDGACASAbHAEJTbPPARgdAAU8BKAABxx8BKABCsgB2zzJHgAWghCv+Q9XWMsfyz8BDbdDG2eeAnAhAE23ejBOC52Hq6WVz2PQnYc6yVCjbNBOE7rGpaVsj5ZkWnXlv74sRzABFu1E0NQB+GLbPGwSIgAO+kABAdMfWQ==';
+    const __init = 'te6ccgEBBwEAMAABFP8A9KQT9LzyyAsBAgFiAgMCAs0EBQAJoUrd4AkAAdQBD9AORmAO2eZMBgAEzxY=';
+    const __code = 'te6ccgECHwEAAgoAART/APSkE/S88sgLAQIBYgIDAgLLBAUCASAbHAIBzgYHAgFIDA0EexwIddJwh+VMCDXCx/eAtDTAwFxsMABkX+RcOIB+kAiUGZvBPhhApFb4IIQlGqYtrqPits8Ads8MfAV2zzggHQgKCQALCBu8tCAgACDTHwGCEJRqmLa68uCB0z8BAg7bPAHwFNs8HQoBFsj4QgHMAds8ye1UCwAEzxYCASAODwIBSBUWAgEgEBECASATFAAVJR/AcoA4HABygCAB9zIcQHKAVAH8BBwAcoCUAXPFlAD+gJwAcpoI26zJW6zsY49f/AQyHDwEHDwECRus5l/8BAE8AFQBMyVNANw8BDiJG6zmX/wEATwAVAEzJU0A3DwEOJw8BACf/AQAslYzJYzMwFw8BDiIW6zmH/wEAHwAQHMlDFw8BDiyQGASAAT7AAAlPhBbyQQI18DfwJwgEJYbW3wEYAABIAFDPhBbyQQI18DUwLHBbOOjyJ/cAOAQgXbPF4hbW3wEZFb4oBcBCTbPPASgGQEKyFnbPMkYABRZzxbIWM8WyQHMAQrIAds8yRoAFoIQr/kPV1jLH8s/AQ2+KO7Z54CcHQBxvd6ME4LnYerpZXPY9CdhzrJUKNs0E4TusalpWyPlmRadeW/vixHME4IGc6tPOK/OkoWA6wtxMj2UARTtRNDUAfhi2zwxHgAG+kAB';
     const __system = 'te6cckEBAQEAAwAAAUD20kA0';
     let systemCell = Cell.fromBase64(__system);
     let builder = new TupleBuilder();
@@ -340,7 +384,6 @@ const SampleTactContract_errors: { [key: number]: { message: string } } = {
     132: { message: `Access denied` },
     133: { message: `Contract stopped` },
     134: { message: `Invalid argument` },
-    4429: { message: `Invalid sender` },
 }
 
 export class SampleTactContract implements Contract {
@@ -370,14 +413,11 @@ export class SampleTactContract implements Contract {
         this.init = init;
     }
     
-    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: Add | 'increment' | Deploy) {
+    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: Slice | Deploy) {
         
         let body: Cell | null = null;
-        if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'Add') {
-            body = beginCell().store(storeAdd(message)).endCell();
-        }
-        if (message === 'increment') {
-            body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
+        if (message && typeof message === 'object' && message instanceof Slice) {
+            body = message.asCell();
         }
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'Deploy') {
             body = beginCell().store(storeDeploy(message)).endCell();
@@ -388,10 +428,10 @@ export class SampleTactContract implements Contract {
         
     }
     
-    async getCounter(provider: ContractProvider) {
+    async getOwner(provider: ContractProvider) {
         let builder = new TupleBuilder();
-        let source = (await provider.get('counter', builder.build())).stack;
-        let result = source.readBigNumber();
+        let source = (await provider.get('owner', builder.build())).stack;
+        let result = source.readAddress();
         return result;
     }
     

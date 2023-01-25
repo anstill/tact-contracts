@@ -1,9 +1,9 @@
 # TACT Compilation Report
 Contract: SampleTactContract
-BOC Size: 610 bytes
+BOC Size: 534 bytes
 
 # Types
-Total Types: 6
+Total Types: 7
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -25,11 +25,15 @@ Signature: `Deploy{queryId:uint64}`
 TLB: `deploy_ok#aff90f57 queryId:uint64 = DeployOk`
 Signature: `DeployOk{queryId:uint64}`
 
-## Add
-TLB: `add#87d43ac2 amount:uint32 = Add`
-Signature: `Add{amount:uint32}`
+## ChangeOwner
+TLB: `change_owner#0f474d03 newOwner:address = ChangeOwner`
+Signature: `ChangeOwner{newOwner:address}`
+
+## Responce
+TLB: `_ sender:address msg:^slice = Responce`
+Signature: `Responce{sender:address,msg:^slice}`
 
 # Get Methods
 Total Get Methods: 1
 
-## counter
+## owner

@@ -3,15 +3,12 @@ SETCP0
   recv_internal: 
 
   4: 
-    0 PUSHINT
-    s0 s2 XCHG
+    s0 s1 XCHG
     NEWC
     STREF
-    s0 s2 XCHG
+    s0 s1 XCHG
     <{
-      ROTREV
       STSLICER
-      32 STU
     }> CALLREF
     ENDC
 
