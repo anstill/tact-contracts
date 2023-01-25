@@ -337,8 +337,8 @@ function dictValueParserResponce(): DictionaryValue<Responce> {
 }
 async function SampleTactContract_init(owner: Address) {
     const __init = 'te6ccgEBBwEAMAABFP8A9KQT9LzyyAsBAgFiAgMCAs0EBQAJoUrd4AkAAdQBD9AORmAO2eZMBgAEzxY=';
-    const __code = 'te6ccgECHwEAAgoAART/APSkE/S88sgLAQIBYgIDAgLLBAUCASAbHAIBzgYHAgFIDA0EexwIddJwh+VMCDXCx/eAtDTAwFxsMABkX+RcOIB+kAiUGZvBPhhApFb4IIQlGqYtrqPits8Ads8MfAV2zzggHQgKCQALCBu8tCAgACDTHwGCEJRqmLa68uCB0z8BAg7bPAHwFNs8HQoBFsj4QgHMAds8ye1UCwAEzxYCASAODwIBSBUWAgEgEBECASATFAAVJR/AcoA4HABygCAB9zIcQHKAVAH8BBwAcoCUAXPFlAD+gJwAcpoI26zJW6zsY49f/AQyHDwEHDwECRus5l/8BAE8AFQBMyVNANw8BDiJG6zmX/wEATwAVAEzJU0A3DwEOJw8BACf/AQAslYzJYzMwFw8BDiIW6zmH/wEAHwAQHMlDFw8BDiyQGASAAT7AAAlPhBbyQQI18DfwJwgEJYbW3wEYAABIAFDPhBbyQQI18DUwLHBbOOjyJ/cAOAQgXbPF4hbW3wEZFb4oBcBCTbPPASgGQEKyFnbPMkYABRZzxbIWM8WyQHMAQrIAds8yRoAFoIQr/kPV1jLH8s/AQ2+KO7Z54CcHQBxvd6ME4LnYerpZXPY9CdhzrJUKNs0E4TusalpWyPlmRadeW/vixHME4IGc6tPOK/OkoWA6wtxMj2UARTtRNDUAfhi2zwxHgAG+kAB';
-    const __system = 'te6cckEBAQEAAwAAAUD20kA0';
+    const __code = 'te6ccgECHgEAAgYAART/APSkE/S88sgLAQIBYgIDAgLLBAUCASAaGwIBzgYHAgFIDA0EexwIddJwh+VMCDXCx/eAtDTAwFxsMABkX+RcOIB+kAiUGZvBPhhApFb4IIQlGqYtrqPits8Ads8MfAV2zzggHAgKCQALCBu8tCAgACDTHwGCEJRqmLa68uCB0z8BAg7bPAHwFNs8HAoBFsj4QgHMAds8ye1UCwAEzxYCASAODwIBSBQVAvdchxAcoBUAcBygBwAcoCUAXPFlAD+gJwAcpoI26zJW6zsY5GfwHKAMhwAcoAcAHKACRus5p/AcoABPABUATMljQDcAHKAOIkbrOafwHKAATwAVAEzJY0A3ABygDicAHKAAJ/AcoAAslYzJczMwFwAcoA4iFus+MPyQH7AIEBECASASEwASfwHKAAHwAQHMAAoxcAHKAAAlPhBbyQQI18DfwJwgEJYbW3wEYAABIAFBPhBbyQQI18DUwLHBbOOjiIC2zx/WXCAQlhtbfARkVvigFgEJNs88BKAYAQrIWds8yRcAFFnPFshYzxbJAcwBCsgB2zzJGQAWghCv+Q9XWMsfyz8BDb4o7tnngJwcAHG93owTgudh6ullc9j0J2HOslQo2zQThO6xqWlbI+WZFp15b++LEcwTggZzq084r86ShYDrC3EyPZQBFO1E0NQB+GLbPDEdAAb6QAE=';
+    const __system = 'te6cckECIAEAAhAAAQHAAQEFoebTAgEU/wD0pBP0vPLICwMCAWIHBAIBIAYFAHG93owTgudh6ullc9j0J2HOslQo2zQThO6xqWlbI+WZFp15b++LEcwTggZzq084r86ShYDrC3EyPZQBDb4o7tnngJweAgLLFwgCAUgQCQIBSA0KAQk2zzwEoAsBCsgB2zzJDAAWghCv+Q9XWMsfyz8BQT4QW8kECNfA1MCxwWzjo4iAts8f1lwgEJYbW3wEZFb4oA4BCshZ2zzJDwAUWc8WyFjPFskBzAIBIBQRAgEgExIAASAAJT4QW8kECNfA38CcIBCWG1t8BGAC91yHEBygFQBwHKAHABygJQBc8WUAP6AnABymgjbrMlbrOxjkZ/AcoAyHABygBwAcoAJG6zmn8BygAE8AFQBMyWNANwAcoA4iRus5p/AcoABPABUATMljQDcAHKAOJwAcoAAn8BygACyVjMlzMzAXABygDiIW6z4w/JAfsAgWFQAKMXABygAAEn8BygAB8AEBzAIBzhkYAAsIG7y0ICAEexwIddJwh+VMCDXCx/eAtDTAwFxsMABkX+RcOIB+kAiUGZvBPhhApFb4IIQlGqYtrqPits8Ads8MfAV2zzggHh0bGgIO2zwB8BTbPB4bARbI+EIBzAHbPMntVBwABM8WACDTHwGCEJRqmLa68uCB0z8BARTtRNDUAfhi2zwxHwAG+kAB8Mm8Rg==';
     let systemCell = Cell.fromBase64(__system);
     let builder = new TupleBuilder();
     builder.writeCell(systemCell);
@@ -384,6 +384,8 @@ const SampleTactContract_errors: { [key: number]: { message: string } } = {
     132: { message: `Access denied` },
     133: { message: `Contract stopped` },
     134: { message: `Invalid argument` },
+    135: { message: `Code of a contract was not found` },
+    136: { message: `Invalid address` },
 }
 
 export class SampleTactContract implements Contract {

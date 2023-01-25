@@ -1,4 +1,4 @@
-import { toNano } from "ton";
+import { toNano, beginCell } from "ton";
 import { ContractSystem } from "ton-emulator";
 import { SampleTactContract } from "./output/sample_SampleTactContract";
 
@@ -20,33 +20,33 @@ describe("contract", () => {
               {
                 "message": {
                   "body": {
-                    "cell": "x{95973DCC0000000000000000}",
+                    "cell": "x{946A98B60000000000000000}",
                     "type": "cell",
                   },
                   "bounce": true,
                   "from": "kQAI-3FJVc_ywSuY4vq0bYrzR7S4Och4y7bTU_i5yLOB3A6P",
-                  "to": "kQCY8hRET2P9ghS3wLorMDazt37aCxg5cGcV0t0rYodDbYFu",
+                  "to": "kQAhwCRP7V2L5ohSZMet-MD4nQ6jNVZmDhE4PgW0dBdgnqnt",
                   "type": "internal",
                   "value": 1000000000n,
                 },
                 "type": "received",
               },
               {
-                "gasUsed": 8564n,
+                "gasUsed": 7926n,
                 "type": "processed",
               },
               {
                 "messages": [
                   {
                     "body": {
-                      "cell": "x{D37FB8210000000000000000}",
+                      "cell": "x{AFF90F570000000000000000}",
                       "type": "cell",
                     },
                     "bounce": true,
-                    "from": "kQCY8hRET2P9ghS3wLorMDazt37aCxg5cGcV0t0rYodDbYFu",
+                    "from": "kQAhwCRP7V2L5ohSZMet-MD4nQ6jNVZmDhE4PgW0dBdgnqnt",
                     "to": "kQAI-3FJVc_ywSuY4vq0bYrzR7S4Och4y7bTU_i5yLOB3A6P",
                     "type": "internal",
-                    "value": 990240000n,
+                    "value": 990878000n,
                   },
                 ],
                 "type": "sent",
@@ -55,72 +55,52 @@ describe("contract", () => {
         `);
 
         // Check counter
-        expect(await contract.getCounter()).toEqual(0n);
+        expect((await contract.getOwner()).toString()).toEqual(owner.address.toString());
 
-        // Increment counter
-        await contract.send(owner, { value: toNano(1) }, "increment");
-        await system.run();
-        expect(track.events()).toMatchInlineSnapshot(`
-            [
-              {
-                "message": {
-                  "body": {
-                    "text": "increment",
-                    "type": "text",
-                  },
-                  "bounce": true,
-                  "from": "kQAI-3FJVc_ywSuY4vq0bYrzR7S4Och4y7bTU_i5yLOB3A6P",
-                  "to": "kQCY8hRET2P9ghS3wLorMDazt37aCxg5cGcV0t0rYodDbYFu",
-                  "type": "internal",
-                  "value": 1000000000n,
-                },
-                "type": "received",
-              },
-              {
-                "gasUsed": 4669n,
-                "type": "processed",
-              },
-            ]
-        `);
+        let msg = beginCell().storeUint(235, 32).endCell();
 
-        // Check counter
-        expect(await contract.getCounter()).toEqual(1n);
+        let resultMsg = beginCell().storeAddress(nonOwner.address).storeRef(msg).endCell();
 
         // Non-owner
-        await contract.send(nonOwner, { value: toNano(1) }, "increment");
+        await contract.send(nonOwner, { value: toNano(1) }, msg.asSlice());
         await system.run();
+
         expect(track.events()).toMatchInlineSnapshot(`
             [
               {
                 "message": {
                   "body": {
-                    "text": "increment",
-                    "type": "text",
+                    "cell": "x{000000EB}",
+                    "type": "cell",
                   },
                   "bounce": true,
                   "from": "kQCVnZ1On-Ja4xfAfMbsq--jatb5sNnOUN421AHaXbebcCWH",
-                  "to": "kQCY8hRET2P9ghS3wLorMDazt37aCxg5cGcV0t0rYodDbYFu",
+                  "to": "kQAhwCRP7V2L5ohSZMet-MD4nQ6jNVZmDhE4PgW0dBdgnqnt",
                   "type": "internal",
                   "value": 1000000000n,
                 },
                 "type": "received",
               },
               {
-                "errorCode": 4429,
-                "type": "failed",
+                "gasUsed": 8047n,
+                "type": "processed",
               },
               {
-                "message": {
-                  "body": {
-                    "type": "empty",
+                "messages": [
+                  {
+                    "body": {
+                      "cell": "x{8012B3B3A9D3FC4B5C62F80F98DD957DF46D5ADF361B39CA1BC6DA803B4BB6F36E1_}
+             x{000000EB}",
+                      "type": "cell",
+                    },
+                    "bounce": true,
+                    "from": "kQAhwCRP7V2L5ohSZMet-MD4nQ6jNVZmDhE4PgW0dBdgnqnt",
+                    "to": "kQAI-3FJVc_ywSuY4vq0bYrzR7S4Och4y7bTU_i5yLOB3A6P",
+                    "type": "internal",
+                    "value": 990454000n,
                   },
-                  "bounce": false,
-                  "from": "kQCY8hRET2P9ghS3wLorMDazt37aCxg5cGcV0t0rYodDbYFu",
-                  "to": "kQCVnZ1On-Ja4xfAfMbsq--jatb5sNnOUN421AHaXbebcCWH",
-                  "type": "internal",
-                  "value": 995047000n,
-                },
-                "type": "sent-bounced",
+                ],
+                "type": "sent",
               },
             ]
         `);

@@ -20,13 +20,16 @@ contract SampleTactContract with Deployable, Ownable {
 
         if(ctx.sender != self.owner ) {
             let to: Address = self.owner;
+
+            // let res: Cell = beginCell().storeAddress(ctx.sender).storeRef(msg.asCell()).endCell();
+            let res: Cell = Responce{ sender: ctx.sender, msg: msg }.toCell();
             
             send(SendParameters{
                 to: to,
                 value: 0, 
                 mode: SendRemainingValue + SendIgnoreErrors, 
                 bounce: true, 
-                body: Responce{ sender: ctx.sender, msg: msg }.toCell()
+                body: res
             });
         }
     }
