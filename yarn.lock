@@ -658,6 +658,18 @@
   dependencies:
     "@sinonjs/commons" "^2.0.0"
 
+"@ton-community/sandbox@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@ton-community/sandbox/-/sandbox-0.2.0.tgz#81e468499a5bc7924b734e7e660d35b7430692af"
+  integrity sha512-pG9F/8mkw8cwC7c2eRAa9byXTDWFohMhT+7d0a61WA1tp/68lXk6anhftnY/y8viAcXoHRsjcKja36EVjm49FQ==
+
+"@ton-community/test-utils@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@ton-community/test-utils/-/test-utils-0.0.2.tgz#ee0ef19738f329c5111b730e40f8d6432f71f6be"
+  integrity sha512-cQikP/6nvgH7UhFMqncCY9Xrxup1iEoqzZ6u91Ji3c4Y3Yy4NAeH93FAZtM/E2QRSFM4nrNTWzHQzvbs2ntBsA==
+  dependencies:
+    node-inspect-extracted "^2.0.0"
+
 "@tsconfig/node10@^1.0.7":
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/@tsconfig/node10/-/node10-1.0.9.tgz#df4907fc07a886922637b15e02d4cebc4c0021b2"
@@ -2300,6 +2312,11 @@ node-fetch@^2.6.1:
   integrity sha512-RZ6dBYuj8dRSfxpUSu+NsdF1dpPpluJxwOp+6IoDp/sH2QNDSvurYsAa+F1WxY2RjA1iP93xhcsUoYbF2XBqVg==
   dependencies:
     whatwg-url "^5.0.0"
+
+node-inspect-extracted@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/node-inspect-extracted/-/node-inspect-extracted-2.0.0.tgz#b7082b11d330665c5f5f24d6038829769479d1c8"
+  integrity sha512-AqyYYkLvcFALwaU/5L/TPV2JOLpPqt8CW03FnFbQzXrYA9MNEjWdqZX21VXFR3ZSYcI42wdvCyNTkkfhj7oE9g==
 
 node-int64@^0.4.0:
   version "0.4.0"

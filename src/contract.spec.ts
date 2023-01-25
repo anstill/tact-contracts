@@ -54,7 +54,7 @@ describe("contract", () => {
             ]
         `);
 
-        // Check counter
+        // Check owner
         expect((await contract.getOwner()).toString()).toEqual(owner.address.toString());
 
         let msg = beginCell().storeUint(235, 32).endCell();
