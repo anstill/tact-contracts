@@ -1,7 +1,9 @@
 {
-    "projects": [{
-        "name": "sample",
-        "path": "./src/contract.tact",
-        "output": "./src/output"
-    }]
+    "projects": [
+        {
+            "name": "sample",
+            "path": "./src/contract.tact",
+            "output": "./src/output"
+        }
+    ]
 }
