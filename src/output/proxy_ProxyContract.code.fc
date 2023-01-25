@@ -58,27 +58,27 @@ cell __gen_writecell_Responce((slice, slice) v) inline_ref {
     return __gen_write_Responce(begin_cell(), v).end_cell();
 }
 
-builder __gen_write_SampleTactContract(builder build_0, (slice) v) inline_ref {
+builder __gen_write_ProxyContract(builder build_0, (slice) v) inline_ref {
     var (v'owner) = v;
     build_0 = __tact_store_address(build_0, v'owner);
     return build_0;
 }
 
-(slice, ((slice))) __gen_read_SampleTactContract(slice sc_0) inline_ref {
+(slice, ((slice))) __gen_read_ProxyContract(slice sc_0) inline_ref {
     var v'owner = sc_0~__tact_load_address();
     return (sc_0, (v'owner));
 }
 
-(slice) __gen_load_SampleTactContract() inline_ref {
+(slice) __gen_load_ProxyContract() inline_ref {
     slice sc = get_data().begin_parse();
     __tact_context_sys = sc~load_ref();
-    return sc~__gen_read_SampleTactContract();
+    return sc~__gen_read_ProxyContract();
 }
 
-() __gen_store_SampleTactContract((slice) v) impure inline_ref {
+() __gen_store_ProxyContract((slice) v) impure inline_ref {
     builder b = begin_cell();
     b = b.store_ref(__tact_context_sys);
-    b = __gen_write_SampleTactContract(b, v);
+    b = __gen_write_ProxyContract(b, v);
     set_data(b.end_cell());
 }
 
@@ -130,18 +130,18 @@ builder __gen_write_SampleTactContract(builder build_0, (slice) v) inline_ref {
     $send((true, $ctx'sender, 0, (64 + 2), $body, null(), null()));
 }
 
-slice $__gen_SampleTactContract_owner((slice) $self) impure {
+slice $__gen_ProxyContract_owner((slice) $self) impure {
     var (($self'owner)) = $self;
     return $self'owner;
 }
 
 _ $__gen_get_owner() method_id(83229) {
-    var self = __gen_load_SampleTactContract();
-    var res = $__gen_SampleTactContract_owner(self);
+    var self = __gen_load_ProxyContract();
+    var res = $__gen_ProxyContract_owner(self);
     return res;
 }
 
-((slice), ()) $__gen_SampleTactContract_receive_fallback((slice) $self, slice $msg) impure {
+((slice), ()) $__gen_ProxyContract_receive_fallback((slice) $self, slice $msg) impure {
     var ($self'owner) = $self;
     var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
     if (__tact_address_neq($ctx'sender, $self'owner)) {
@@ -152,7 +152,7 @@ _ $__gen_get_owner() method_id(83229) {
     return (($self'owner), ());
 }
 
-(((slice)), ()) $__gen_SampleTactContract_receive_Deploy((slice) $self, (int) $deploy) impure {
+(((slice)), ()) $__gen_ProxyContract_receive_Deploy((slice) $self, (int) $deploy) impure {
     var ($self'owner) = $self;
     var ($deploy'queryId) = $deploy;
     $reply(__gen_writecell_DeployOk(($deploy'queryId)));
@@ -180,17 +180,17 @@ _ $__gen_get_owner() method_id(83229) {
     
     ;; Receive Deploy message
     if (op == 2490013878) {
-        var self = __gen_load_SampleTactContract();
+        var self = __gen_load_ProxyContract();
         var msg = in_msg~__gen_read_Deploy();
-        self~$__gen_SampleTactContract_receive_Deploy(msg);
-        __gen_store_SampleTactContract(self);
+        self~$__gen_ProxyContract_receive_Deploy(msg);
+        __gen_store_ProxyContract(self);
         return ();
     }
     
     ;; Receiver fallback
-    var self = __gen_load_SampleTactContract();
-    self~$__gen_SampleTactContract_receive_fallback(in_msg);
-    __gen_store_SampleTactContract(self);
+    var self = __gen_load_ProxyContract();
+    self~$__gen_ProxyContract_receive_fallback(in_msg);
+    __gen_store_ProxyContract(self);
 }
 
 _ supported_interfaces() method_id {
@@ -202,5 +202,5 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmXd3e5MThcjEFWNSX3ZXhffgjc8GB97Ga5MrcnpEdC8PS";
+    return "ipfs://Qmbt9NrotEVqE91Mhnz6XZtV4QsoNffuTmuvmRf8nr2cbq";
 }

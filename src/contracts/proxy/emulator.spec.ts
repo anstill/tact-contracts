@@ -1,6 +1,6 @@
 import { toNano, beginCell } from "ton";
 import { ContractSystem } from "ton-emulator";
-import { SampleTactContract } from "./output/sample_SampleTactContract";
+import { ProxyContract } from "../../output/proxy_ProxyContract";
 
 describe("contract", () => {
     it("should deploy correctly", async () => {
@@ -8,7 +8,7 @@ describe("contract", () => {
         let system = await ContractSystem.create();
         let owner = system.treasure("owner");
         let nonOwner = system.treasure("non-owner");
-        let contract = system.open(await SampleTactContract.fromInit(owner.address));
+        let contract = system.open(await ProxyContract.fromInit(owner.address));
         let track = system.track(contract.address);
         await contract.send(owner, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n });
         await system.run();
@@ -25,7 +25,7 @@ describe("contract", () => {
                   },
                   "bounce": true,
                   "from": "kQAI-3FJVc_ywSuY4vq0bYrzR7S4Och4y7bTU_i5yLOB3A6P",
-                  "to": "kQAhwCRP7V2L5ohSZMet-MD4nQ6jNVZmDhE4PgW0dBdgnqnt",
+                  "to": "kQDHPf-hURExuReAktC576_ghQdfoUKNCJHu2mWJMVAoHGoh",
                   "type": "internal",
                   "value": 1000000000n,
                 },
@@ -43,7 +43,7 @@ describe("contract", () => {
                       "type": "cell",
                     },
                     "bounce": true,
-                    "from": "kQAhwCRP7V2L5ohSZMet-MD4nQ6jNVZmDhE4PgW0dBdgnqnt",
+                    "from": "kQDHPf-hURExuReAktC576_ghQdfoUKNCJHu2mWJMVAoHGoh",
                     "to": "kQAI-3FJVc_ywSuY4vq0bYrzR7S4Och4y7bTU_i5yLOB3A6P",
                     "type": "internal",
                     "value": 990878000n,
@@ -75,7 +75,7 @@ describe("contract", () => {
                   },
                   "bounce": true,
                   "from": "kQCVnZ1On-Ja4xfAfMbsq--jatb5sNnOUN421AHaXbebcCWH",
-                  "to": "kQAhwCRP7V2L5ohSZMet-MD4nQ6jNVZmDhE4PgW0dBdgnqnt",
+                  "to": "kQDHPf-hURExuReAktC576_ghQdfoUKNCJHu2mWJMVAoHGoh",
                   "type": "internal",
                   "value": 1000000000n,
                 },
@@ -94,7 +94,7 @@ describe("contract", () => {
                       "type": "cell",
                     },
                     "bounce": true,
-                    "from": "kQAhwCRP7V2L5ohSZMet-MD4nQ6jNVZmDhE4PgW0dBdgnqnt",
+                    "from": "kQDHPf-hURExuReAktC576_ghQdfoUKNCJHu2mWJMVAoHGoh",
                     "to": "kQAI-3FJVc_ywSuY4vq0bYrzR7S4Och4y7bTU_i5yLOB3A6P",
                     "type": "internal",
                     "value": 990454000n,

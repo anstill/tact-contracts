@@ -1,8 +1,8 @@
 PROGRAM{
   DECLPROC __tact_verify_address
   DECLPROC __tact_store_address
-  DECLPROC __gen_write_SampleTactContract
-  DECLPROC $__gen_SampleTactContract_init
+  DECLPROC __gen_write_ProxyContract
+  DECLPROC $__gen_ProxyContract_init
   107886 DECLMETHOD init
   DECLPROC main
   __tact_verify_address PROCINLINE:<{
@@ -14,19 +14,19 @@ PROGRAM{
   __tact_store_address PROCINLINE:<{
     STSLICER
   }>
-  __gen_write_SampleTactContract PROCREF:<{
+  __gen_write_ProxyContract PROCREF:<{
     __tact_store_address INLINECALLDICT
   }>
-  $__gen_SampleTactContract_init PROC:<{
+  $__gen_ProxyContract_init PROC:<{
     SWAP
     NEWC
     STREF
     SWAP
-    __gen_write_SampleTactContract INLINECALLDICT
+    __gen_write_ProxyContract INLINECALLDICT
     ENDC
   }>
   init PROC:<{
-    $__gen_SampleTactContract_init CALLDICT
+    $__gen_ProxyContract_init CALLDICT
   }>
   main PROC:<{
   }>

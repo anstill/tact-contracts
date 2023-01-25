@@ -1,5 +1,5 @@
 # TACT Compilation Report
-Contract: SampleTactContract
+Contract: ProxyContract
 BOC Size: 530 bytes
 
 # Types

@@ -8,24 +8,24 @@ builder __tact_store_address(builder b, slice address) inline {
     return b;
 }
 
-builder __gen_write_SampleTactContract(builder build_0, (slice) v) inline_ref {
+builder __gen_write_ProxyContract(builder build_0, (slice) v) inline_ref {
     var (v'owner) = v;
     build_0 = __tact_store_address(build_0, v'owner);
     return build_0;
 }
 
-cell $__gen_SampleTactContract_init(cell sys', slice $owner) {
+cell $__gen_ProxyContract_init(cell sys', slice $owner) {
     var (($self'owner)) = (null());
     $self'owner = $owner;
     var b' = begin_cell();
     b' = b'.store_ref(sys');
-    b' = __gen_write_SampleTactContract(b', ($self'owner));
+    b' = __gen_write_ProxyContract(b', ($self'owner));
     return b'.end_cell();
 }
 
 cell init(cell sys', slice $$owner) method_id {
     slice $owner = $$owner;
-    return $__gen_SampleTactContract_init(sys', $owner);
+    return $__gen_ProxyContract_init(sys', $owner);
 }
 
 () main() {

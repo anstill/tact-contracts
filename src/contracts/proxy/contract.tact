@@ -7,7 +7,7 @@ struct Responce {
 }
 
 
-contract SampleTactContract with Deployable, Ownable {
+contract ProxyContract with Deployable, Ownable {
 
     owner: Address;
 

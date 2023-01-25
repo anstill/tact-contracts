@@ -335,10 +335,10 @@ function dictValueParserResponce(): DictionaryValue<Responce> {
         }
     }
 }
-async function SampleTactContract_init(owner: Address) {
+async function ProxyContract_init(owner: Address) {
     const __init = 'te6ccgEBBwEAMAABFP8A9KQT9LzyyAsBAgFiAgMCAs0EBQAJoUrd4AkAAdQBD9AORmAO2eZMBgAEzxY=';
     const __code = 'te6ccgECHgEAAgYAART/APSkE/S88sgLAQIBYgIDAgLLBAUCASAaGwIBzgYHAgFIDA0EexwIddJwh+VMCDXCx/eAtDTAwFxsMABkX+RcOIB+kAiUGZvBPhhApFb4IIQlGqYtrqPits8Ads8MfAV2zzggHAgKCQALCBu8tCAgACDTHwGCEJRqmLa68uCB0z8BAg7bPAHwFNs8HAoBFsj4QgHMAds8ye1UCwAEzxYCASAODwIBSBQVAvdchxAcoBUAcBygBwAcoCUAXPFlAD+gJwAcpoI26zJW6zsY5GfwHKAMhwAcoAcAHKACRus5p/AcoABPABUATMljQDcAHKAOIkbrOafwHKAATwAVAEzJY0A3ABygDicAHKAAJ/AcoAAslYzJczMwFwAcoA4iFus+MPyQH7AIEBECASASEwASfwHKAAHwAQHMAAoxcAHKAAAlPhBbyQQI18DfwJwgEJYbW3wEYAABIAFBPhBbyQQI18DUwLHBbOOjiIC2zx/WXCAQlhtbfARkVvigFgEJNs88BKAYAQrIWds8yRcAFFnPFshYzxbJAcwBCsgB2zzJGQAWghCv+Q9XWMsfyz8BDb4o7tnngJwcAHG93owTgudh6ullc9j0J2HOslQo2zQThO6xqWlbI+WZFp15b++LEcwTggZzq084r86ShYDrC3EyPZQBFO1E0NQB+GLbPDEdAAb6QAE=';
-    const __system = 'te6cckECIAEAAhAAAQHAAQEFoebTAgEU/wD0pBP0vPLICwMCAWIHBAIBIAYFAHG93owTgudh6ullc9j0J2HOslQo2zQThO6xqWlbI+WZFp15b++LEcwTggZzq084r86ShYDrC3EyPZQBDb4o7tnngJweAgLLFwgCAUgQCQIBSA0KAQk2zzwEoAsBCsgB2zzJDAAWghCv+Q9XWMsfyz8BQT4QW8kECNfA1MCxwWzjo4iAts8f1lwgEJYbW3wEZFb4oA4BCshZ2zzJDwAUWc8WyFjPFskBzAIBIBQRAgEgExIAASAAJT4QW8kECNfA38CcIBCWG1t8BGAC91yHEBygFQBwHKAHABygJQBc8WUAP6AnABymgjbrMlbrOxjkZ/AcoAyHABygBwAcoAJG6zmn8BygAE8AFQBMyWNANwAcoA4iRus5p/AcoABPABUATMljQDcAHKAOJwAcoAAn8BygACyVjMlzMzAXABygDiIW6z4w/JAfsAgWFQAKMXABygAAEn8BygAB8AEBzAIBzhkYAAsIG7y0ICAEexwIddJwh+VMCDXCx/eAtDTAwFxsMABkX+RcOIB+kAiUGZvBPhhApFb4IIQlGqYtrqPits8Ads8MfAV2zzggHh0bGgIO2zwB8BTbPB4bARbI+EIBzAHbPMntVBwABM8WACDTHwGCEJRqmLa68uCB0z8BARTtRNDUAfhi2zwxHwAG+kAB8Mm8Rg==';
+    const __system = 'te6cckECIAEAAhAAAQHAAQEFoPBdAgEU/wD0pBP0vPLICwMCAWIHBAIBIAYFAHG93owTgudh6ullc9j0J2HOslQo2zQThO6xqWlbI+WZFp15b++LEcwTggZzq084r86ShYDrC3EyPZQBDb4o7tnngJweAgLLFwgCAUgQCQIBSA0KAQk2zzwEoAsBCsgB2zzJDAAWghCv+Q9XWMsfyz8BQT4QW8kECNfA1MCxwWzjo4iAts8f1lwgEJYbW3wEZFb4oA4BCshZ2zzJDwAUWc8WyFjPFskBzAIBIBQRAgEgExIAASAAJT4QW8kECNfA38CcIBCWG1t8BGAC91yHEBygFQBwHKAHABygJQBc8WUAP6AnABymgjbrMlbrOxjkZ/AcoAyHABygBwAcoAJG6zmn8BygAE8AFQBMyWNANwAcoA4iRus5p/AcoABPABUATMljQDcAHKAOJwAcoAAn8BygACyVjMlzMzAXABygDiIW6z4w/JAfsAgWFQAKMXABygAAEn8BygAB8AEBzAIBzhkYAAsIG7y0ICAEexwIddJwh+VMCDXCx/eAtDTAwFxsMABkX+RcOIB+kAiUGZvBPhhApFb4IIQlGqYtrqPits8Ads8MfAV2zzggHh0bGgIO2zwB8BTbPB4bARbI+EIBzAHbPMntVBwABM8WACDTHwGCEJRqmLa68uCB0z8BARTtRNDUAfhi2zwxHwAG+kABMyoUpw==';
     let systemCell = Cell.fromBase64(__system);
     let builder = new TupleBuilder();
     builder.writeCell(systemCell);
@@ -351,8 +351,8 @@ async function SampleTactContract_init(owner: Address) {
     let res = await executor.get('init', __stack);
     if (!res.success) { throw Error(res.error); }
     if (res.exitCode !== 0 && res.exitCode !== 1) {
-        if (SampleTactContract_errors[res.exitCode]) {
-            throw new ComputeError(SampleTactContract_errors[res.exitCode].message, res.exitCode, { logs: res.vmLogs });
+        if (ProxyContract_errors[res.exitCode]) {
+            throw new ComputeError(ProxyContract_errors[res.exitCode].message, res.exitCode, { logs: res.vmLogs });
         } else {
             throw new ComputeError('Exit code: ' + res.exitCode, res.exitCode, { logs: res.vmLogs });
         }
@@ -362,7 +362,7 @@ async function SampleTactContract_init(owner: Address) {
     return { code: codeCell, data };
 }
 
-const SampleTactContract_errors: { [key: number]: { message: string } } = {
+const ProxyContract_errors: { [key: number]: { message: string } } = {
     2: { message: `Stack undeflow` },
     3: { message: `Stack overflow` },
     4: { message: `Integer overflow` },
@@ -388,26 +388,26 @@ const SampleTactContract_errors: { [key: number]: { message: string } } = {
     136: { message: `Invalid address` },
 }
 
-export class SampleTactContract implements Contract {
+export class ProxyContract implements Contract {
     
     static async init(owner: Address) {
-        return await SampleTactContract_init(owner);
+        return await ProxyContract_init(owner);
     }
     
     static async fromInit(owner: Address) {
-        const init = await SampleTactContract_init(owner);
+        const init = await ProxyContract_init(owner);
         const address = contractAddress(0, init);
-        return new SampleTactContract(address, init);
+        return new ProxyContract(address, init);
     }
     
     static fromAddress(address: Address) {
-        return new SampleTactContract(address);
+        return new ProxyContract(address);
     }
     
     readonly address: Address; 
     readonly init?: { code: Cell, data: Cell };
     readonly abi: ContractABI = {
-        errors: SampleTactContract_errors
+        errors: ProxyContract_errors
     };
     
     private constructor(address: Address, init?: { code: Cell, data: Cell }) {

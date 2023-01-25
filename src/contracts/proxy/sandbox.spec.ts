@@ -1,17 +1,16 @@
 import { Blockchain } from "@ton-community/sandbox";
 import { toNano, beginCell } from "ton";
-import { SampleTactContract } from "./output/sample_SampleTactContract";
-
+import { ProxyContract } from "../../output/proxy_ProxyContract";
 import "@ton-community/test-utils";
 
 describe("Contract", () => {
-    it("should work", async () => {
+    it("Should work", async () => {
         const blkch = await Blockchain.create();
 
         let owner = await blkch.treasury("owner");
         let nonOwner = await blkch.treasury("non-owner");
 
-        const contract = blkch.openContract(await SampleTactContract.fromInit(owner.address));
+        const contract = blkch.openContract(await ProxyContract.fromInit(owner.address));
 
         let result = await contract.send(owner.getSender(), { value: toNano(1) }, { $$type: "Deploy", queryId: 0n });
 

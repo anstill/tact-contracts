@@ -1,8 +1,8 @@
 {
     "projects": [
         {
-            "name": "sample",
-            "path": "./src/contract.tact",
+            "name": "proxy",
+            "path": "./src/contracts/proxy/contract.tact",
             "output": "./src/output"
         }
     ]

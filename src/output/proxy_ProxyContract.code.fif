@@ -11,16 +11,16 @@ PROGRAM{
   DECLPROC __gen_writecell_DeployOk
   DECLPROC __gen_write_Responce
   DECLPROC __gen_writecell_Responce
-  DECLPROC __gen_write_SampleTactContract
-  DECLPROC __gen_read_SampleTactContract
-  DECLPROC __gen_load_SampleTactContract
-  DECLPROC __gen_store_SampleTactContract
+  DECLPROC __gen_write_ProxyContract
+  DECLPROC __gen_read_ProxyContract
+  DECLPROC __gen_load_ProxyContract
+  DECLPROC __gen_store_ProxyContract
   DECLPROC $send
   DECLPROC $reply
-  DECLPROC $__gen_SampleTactContract_owner
+  DECLPROC $__gen_ProxyContract_owner
   83229 DECLMETHOD $__gen_get_owner
-  DECLPROC $__gen_SampleTactContract_receive_fallback
-  DECLPROC $__gen_SampleTactContract_receive_Deploy
+  DECLPROC $__gen_ProxyContract_receive_fallback
+  DECLPROC $__gen_ProxyContract_receive_Deploy
   DECLPROC recv_internal
   113617 DECLMETHOD supported_interfaces
   DECLPROC get_abi_ipfs
@@ -93,28 +93,28 @@ PROGRAM{
     __gen_write_Responce INLINECALLDICT
     ENDC
   }>
-  __gen_write_SampleTactContract PROCREF:<{
+  __gen_write_ProxyContract PROCREF:<{
     __tact_store_address INLINECALLDICT
   }>
-  __gen_read_SampleTactContract PROCREF:<{
+  __gen_read_ProxyContract PROCREF:<{
     __tact_load_address INLINECALLDICT
   }>
-  __gen_load_SampleTactContract PROCREF:<{
+  __gen_load_ProxyContract PROCREF:<{
     c4 PUSH
     CTOS
     LDREF
     SWAP
     __tact_context_sys SETGLOB
-    __gen_read_SampleTactContract INLINECALLDICT
+    __gen_read_ProxyContract INLINECALLDICT
     NIP
   }>
-  __gen_store_SampleTactContract PROCREF:<{
+  __gen_store_ProxyContract PROCREF:<{
     NEWC
     __tact_context_sys GETGLOB
     SWAP
     STREF
     SWAP
-    __gen_write_SampleTactContract INLINECALLDICT
+    __gen_write_ProxyContract INLINECALLDICT
     ENDC
     c4 POP
   }>
@@ -230,13 +230,13 @@ PROGRAM{
     PUSHNULL
     $send CALLDICT
   }>
-  $__gen_SampleTactContract_owner PROC:<{
+  $__gen_ProxyContract_owner PROC:<{
   }>
   $__gen_get_owner PROC:<{
-    __gen_load_SampleTactContract INLINECALLDICT
-    $__gen_SampleTactContract_owner CALLDICT
+    __gen_load_ProxyContract INLINECALLDICT
+    $__gen_ProxyContract_owner CALLDICT
   }>
-  $__gen_SampleTactContract_receive_fallback PROC:<{
+  $__gen_ProxyContract_receive_fallback PROC:<{
     __tact_context_get INLINECALLDICT
     s2 s3 XCHG
     3 BLKDROP
@@ -258,7 +258,7 @@ PROGRAM{
       2DROP
     }>
   }>
-  $__gen_SampleTactContract_receive_Deploy PROC:<{
+  $__gen_ProxyContract_receive_Deploy PROC:<{
     __gen_writecell_DeployOk INLINECALLDICT
     $reply CALLDICT
   }>
@@ -297,17 +297,17 @@ PROGRAM{
     2490013878 PUSHINT
     EQUAL
     IFJMP:<{
-      __gen_load_SampleTactContract INLINECALLDICT
+      __gen_load_ProxyContract INLINECALLDICT
       SWAP
       __gen_read_Deploy INLINECALLDICT
       NIP
-      $__gen_SampleTactContract_receive_Deploy CALLDICT
-      __gen_store_SampleTactContract INLINECALLDICT
+      $__gen_ProxyContract_receive_Deploy CALLDICT
+      __gen_store_ProxyContract INLINECALLDICT
     }>
-    __gen_load_SampleTactContract INLINECALLDICT
+    __gen_load_ProxyContract INLINECALLDICT
     SWAP
-    $__gen_SampleTactContract_receive_fallback CALLDICT
-    __gen_store_SampleTactContract INLINECALLDICT
+    $__gen_ProxyContract_receive_fallback CALLDICT
+    __gen_store_ProxyContract INLINECALLDICT
   }>
   supported_interfaces PROC:<{
     123515602279859691144772641439386770278 PUSHINT
@@ -315,6 +315,6 @@ PROGRAM{
     86142586315491086060343270784266291122 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d58643365354d5468636a4546574e5358335a58686666676a6338474239374761354d72636e70456443385053} PUSHSLICE
+    x{697066733a2f2f516d6274394e726f744556714539314d686e7a36585a74563451736f4e666675546d75766d5266386e7232636271} PUSHSLICE
   }>
 }END>c
