@@ -2,7 +2,7 @@ import { toNano, beginCell } from "ton";
 import { ContractSystem } from "ton-emulator";
 import { ProxyContract } from "../../output/proxy_ProxyContract";
 
-describe("contract", () => {
+describe("ProxyContract", () => {
     it("should deploy correctly", async () => {
         // Create ContractSystem and deploy contract
         let system = await ContractSystem.create();

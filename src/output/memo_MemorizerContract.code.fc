@@ -1,0 +1,283 @@
+forall X -> X __tact_not_null(X x) { throw_if(128, null?(x)); return x; }
+
+global (int, slice, int, slice) __tact_context;
+global cell __tact_context_sys;
+
+(int, slice, int, slice) __tact_context_get() inline { return __tact_context; }
+
+() __tact_verify_address(slice address) inline {
+    throw_unless(136, address.slice_bits() != 267);
+}
+
+builder __tact_store_bool(builder b, int v) inline {
+    b = b.store_int(v, 1);
+    return b;
+}
+
+(slice, slice) __tact_load_address(slice cs) inline {
+    slice raw = cs~load_msg_addr();
+    __tact_verify_address(raw);
+    return (cs, raw);
+}
+
+(slice, slice) __tact_load_address_opt(slice cs) inline {
+    slice raw = cs~load_msg_addr();
+    if (raw.preload_uint(2) != 0) {
+        __tact_verify_address(raw);
+        return (cs, raw);
+    } else {
+        return (cs, null());
+    }
+}
+
+builder __tact_store_address(builder b, slice address) inline {
+    __tact_verify_address(address);
+    b = b.store_slice(address);
+    return b;
+}
+
+builder __tact_store_address_opt(builder b, slice address) inline {
+    if (null?(address)) {
+        b = b.store_uint(0, 2);
+        return b;
+    } else {
+        return __tact_store_address(b, address);
+    }
+}
+
+int __tact_address_eq(slice a, slice b) inline {
+    return equal_slice_bits(a, b);
+}
+
+(slice, ((int))) __gen_read_Deploy(slice sc_0) inline_ref {
+    throw_unless(129, sc_0~load_uint(32) == 2490013878);
+    var v'queryId = sc_0~load_uint(64);
+    return (sc_0, (v'queryId));
+}
+
+builder __gen_write_DeployOk(builder build_0, (int) v) inline_ref {
+    var (v'queryId) = v;
+    build_0 = store_uint(build_0, 2952335191, 32);
+    build_0 = build_0.store_uint(v'queryId, 64);
+    return build_0;
+}
+
+cell __gen_writecell_DeployOk((int) v) inline_ref {
+    return __gen_write_DeployOk(begin_cell(), v).end_cell();
+}
+
+(slice, ((int, slice))) __gen_read_StoreAddress(slice sc_0) inline_ref {
+    throw_unless(129, sc_0~load_uint(32) == 1);
+    var v'queryId = sc_0~load_uint(64);
+    var v'address = sc_0~__tact_load_address();
+    return (sc_0, (v'queryId, v'address));
+}
+
+(slice, ((int))) __gen_read_CallBack(slice sc_0) inline_ref {
+    throw_unless(129, sc_0~load_uint(32) == 2);
+    var v'queryId = sc_0~load_uint(64);
+    return (sc_0, (v'queryId));
+}
+
+builder __gen_write_CallBackResponce(builder build_0, (int, int, slice, slice) v) inline_ref {
+    var (v'op, v'queryId, v'owner, v'memorizedAddress) = v;
+    build_0 = build_0.store_uint(v'op, 32);
+    build_0 = build_0.store_uint(v'queryId, 64);
+    build_0 = __tact_store_address(build_0, v'owner);
+    build_0 = __tact_store_address_opt(build_0, v'memorizedAddress);
+    return build_0;
+}
+
+cell __gen_writecell_CallBackResponce((int, int, slice, slice) v) inline_ref {
+    return __gen_write_CallBackResponce(begin_cell(), v).end_cell();
+}
+
+builder __gen_write_MemorizerContract(builder build_0, (slice, slice) v) inline_ref {
+    var (v'owner, v'memorizedAddress) = v;
+    build_0 = __tact_store_address(build_0, v'owner);
+    build_0 = __tact_store_address_opt(build_0, v'memorizedAddress);
+    return build_0;
+}
+
+(slice, ((slice, slice))) __gen_read_MemorizerContract(slice sc_0) inline_ref {
+    var v'owner = sc_0~__tact_load_address();
+    var v'memorizedAddress = sc_0~__tact_load_address_opt();
+    return (sc_0, (v'owner, v'memorizedAddress));
+}
+
+_ __gen_Context_get_sender((int, slice, int, slice) v) inline {
+    var (v'bounced, v'sender, v'value, v'raw) = v;
+    return v'sender;
+}
+
+(slice, slice) __gen_load_MemorizerContract() inline_ref {
+    slice sc = get_data().begin_parse();
+    __tact_context_sys = sc~load_ref();
+    return sc~__gen_read_MemorizerContract();
+}
+
+() __gen_store_MemorizerContract((slice, slice) v) impure inline_ref {
+    builder b = begin_cell();
+    b = b.store_ref(__tact_context_sys);
+    b = __gen_write_MemorizerContract(b, v);
+    set_data(b.end_cell());
+}
+
+() $send((int, slice, int, int, cell, cell, cell) $params) impure {
+    var (($params'bounce, $params'to, $params'value, $params'mode, $params'body, $params'code, $params'data)) = $params;
+    builder $b = begin_cell();
+    $b = store_int($b, 1, 2);
+    $b = __tact_store_bool($b, $params'bounce);
+    $b = store_int($b, 0, 3);
+    $b = __tact_store_address($b, $params'to);
+    $b = store_coins($b, $params'value);
+    $b = store_int($b, 0, ((((1 + 4) + 4) + 64) + 32));
+    if (((~ null?($params'code)) | (~ null?($params'data)))) {
+        $b = __tact_store_bool($b, true);
+        builder $bc = begin_cell();
+        $bc = __tact_store_bool($bc, false);
+        $bc = __tact_store_bool($bc, false);
+        if ((~ null?($params'code))) {
+            $bc = __tact_store_bool($bc, true);
+            $bc = store_ref($bc, __tact_not_null($params'code));
+        } else {
+            $bc = __tact_store_bool($bc, false);
+        }
+        if ((~ null?($params'data))) {
+            $bc = __tact_store_bool($bc, true);
+            $bc = store_ref($bc, __tact_not_null($params'data));
+        } else {
+            $bc = __tact_store_bool($bc, false);
+        }
+        $bc = __tact_store_bool($bc, false);
+        $b = __tact_store_bool($b, true);
+        $b = store_ref($b, end_cell($bc));
+    } else {
+        $b = __tact_store_bool($b, false);
+    }
+    cell $body = $params'body;
+    if ((~ null?($body))) {
+        $b = __tact_store_bool($b, true);
+        $b = store_ref($b, __tact_not_null($body));
+    } else {
+        $b = __tact_store_bool($b, false);
+    }
+    cell $c = end_cell($b);
+    send_raw_message($c, $params'mode);
+}
+
+() $reply(cell $body) impure {
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    $send((true, $ctx'sender, 0, (64 + 2), $body, null(), null()));
+}
+
+((slice, slice), ()) $__gen_MemorizerContract_requireOwner((slice, slice) $self) impure {
+    var (($self'owner, $self'memorizedAddress)) = $self;
+    throw_unless(132, __tact_address_eq(__gen_Context_get_sender(__tact_context_get()), $self'owner));
+    return (($self'owner, $self'memorizedAddress), ());
+}
+
+slice $__gen_MemorizerContract_owner((slice, slice) $self) impure {
+    var (($self'owner, $self'memorizedAddress)) = $self;
+    return $self'owner;
+}
+
+_ $__gen_get_owner() method_id(83229) {
+    var self = __gen_load_MemorizerContract();
+    var res = $__gen_MemorizerContract_owner(self);
+    return res;
+}
+
+(((slice, slice)), ()) $__gen_MemorizerContract_receive_StoreAddress((slice, slice) $self, (int, slice) $msg) impure {
+    var ($self'owner, $self'memorizedAddress) = $self;
+    var ($msg'queryId, $msg'address) = $msg;
+    ($self'owner, $self'memorizedAddress)~$__gen_MemorizerContract_requireOwner();
+    $self'memorizedAddress = $msg'address;
+    return (($self'owner, $self'memorizedAddress), ());
+}
+
+(((slice, slice)), ()) $__gen_MemorizerContract_receive_CallBack((slice, slice) $self, (int) $msg) impure {
+    var ($self'owner, $self'memorizedAddress) = $self;
+    var ($msg'queryId) = $msg;
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    cell $res = __gen_writecell_CallBackResponce((3, $msg'queryId, $self'owner, $self'memorizedAddress));
+    $send((true, $ctx'sender, 0, (64 + 2), $res, null(), null()));
+    return (($self'owner, $self'memorizedAddress), ());
+}
+
+((slice, slice), ()) $__gen_MemorizerContract_receive_fallback((slice, slice) $self, slice $msg) impure {
+    var ($self'owner, $self'memorizedAddress) = $self;
+    throw(3);
+    return (($self'owner, $self'memorizedAddress), ());
+}
+
+(((slice, slice)), ()) $__gen_MemorizerContract_receive_Deploy((slice, slice) $self, (int) $deploy) impure {
+    var ($self'owner, $self'memorizedAddress) = $self;
+    var ($deploy'queryId) = $deploy;
+    $reply(__gen_writecell_DeployOk(($deploy'queryId)));
+    return (($self'owner, $self'memorizedAddress), ());
+}
+
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = ((msg_flags & 1) == 1 ? true : false);
+    slice msg_sender_addr = cs~load_msg_addr();
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return ();
+    }
+    
+    ;; Receive StoreAddress message
+    if (op == 1) {
+        var self = __gen_load_MemorizerContract();
+        var msg = in_msg~__gen_read_StoreAddress();
+        self~$__gen_MemorizerContract_receive_StoreAddress(msg);
+        __gen_store_MemorizerContract(self);
+        return ();
+    }
+    
+    ;; Receive CallBack message
+    if (op == 2) {
+        var self = __gen_load_MemorizerContract();
+        var msg = in_msg~__gen_read_CallBack();
+        self~$__gen_MemorizerContract_receive_CallBack(msg);
+        __gen_store_MemorizerContract(self);
+        return ();
+    }
+    
+    ;; Receive Deploy message
+    if (op == 2490013878) {
+        var self = __gen_load_MemorizerContract();
+        var msg = in_msg~__gen_read_Deploy();
+        self~$__gen_MemorizerContract_receive_Deploy(msg);
+        __gen_store_MemorizerContract(self);
+        return ();
+    }
+    
+    ;; Receiver fallback
+    var self = __gen_load_MemorizerContract();
+    self~$__gen_MemorizerContract_receive_fallback(in_msg);
+    __gen_store_MemorizerContract(self);
+}
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.ownable"H >> 128
+    );
+}
+
+_ get_abi_ipfs() {
+    return "ipfs://QmXzxuSoZCp1kpWQ29jN8yfNJYe8XuTkXWNyyUb386GnCz";
+}

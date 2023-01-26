@@ -4,6 +4,11 @@
             "name": "proxy",
             "path": "./src/contracts/proxy/contract.tact",
             "output": "./src/output"
+        }, 
+        {
+            "name": "memo",
+            "path": "./src/contracts/memorizer/contract.tact",
+            "output": "./src/output"
         }
     ]
 }

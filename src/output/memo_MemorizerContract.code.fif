@@ -1,0 +1,415 @@
+PROGRAM{
+  DECLPROC __tact_not_null
+  DECLPROC __tact_context_get
+  DECLPROC __tact_verify_address
+  DECLPROC __tact_store_bool
+  DECLPROC __tact_load_address
+  DECLPROC __tact_load_address_opt
+  DECLPROC __tact_store_address
+  DECLPROC __tact_store_address_opt
+  DECLPROC __tact_address_eq
+  DECLPROC __gen_read_Deploy
+  DECLPROC __gen_write_DeployOk
+  DECLPROC __gen_writecell_DeployOk
+  DECLPROC __gen_read_StoreAddress
+  DECLPROC __gen_read_CallBack
+  DECLPROC __gen_write_CallBackResponce
+  DECLPROC __gen_writecell_CallBackResponce
+  DECLPROC __gen_write_MemorizerContract
+  DECLPROC __gen_read_MemorizerContract
+  DECLPROC __gen_Context_get_sender
+  DECLPROC __gen_load_MemorizerContract
+  DECLPROC __gen_store_MemorizerContract
+  DECLPROC $send
+  DECLPROC $reply
+  DECLPROC $__gen_MemorizerContract_requireOwner
+  DECLPROC $__gen_MemorizerContract_owner
+  83229 DECLMETHOD $__gen_get_owner
+  DECLPROC $__gen_MemorizerContract_receive_StoreAddress
+  DECLPROC $__gen_MemorizerContract_receive_CallBack
+  DECLPROC $__gen_MemorizerContract_receive_fallback
+  DECLPROC $__gen_MemorizerContract_receive_Deploy
+  DECLPROC recv_internal
+  113617 DECLMETHOD supported_interfaces
+  DECLPROC get_abi_ipfs
+  DECLGLOBVAR __tact_context
+  DECLGLOBVAR __tact_context_sys
+  __tact_not_null PROC:<{
+    DUP
+    ISNULL
+    128 THROWIF
+  }>
+  __tact_context_get PROCINLINE:<{
+    __tact_context GETGLOB
+    4 UNTUPLE
+  }>
+  __tact_verify_address PROCINLINE:<{
+    SBITS
+    267 PUSHINT
+    NEQ
+    136 THROWIFNOT
+  }>
+  __tact_store_bool PROCINLINE:<{
+    SWAP
+    1 STI
+  }>
+  __tact_load_address PROCINLINE:<{
+    LDMSGADDR
+    SWAP
+  }>
+  __tact_load_address_opt PROCINLINE:<{
+    LDMSGADDR
+    OVER
+    2 PLDU
+    0 NEQINT
+    IF:<{
+      SWAP
+    }>ELSE<{
+      NIP
+      PUSHNULL
+    }>
+  }>
+  __tact_store_address PROCINLINE:<{
+    STSLICER
+  }>
+  __tact_store_address_opt PROCINLINE:<{
+    DUP
+    ISNULL
+    IF:<{
+      DROP
+      0 PUSHINT
+      SWAP
+      2 STU
+    }>ELSE<{
+      __tact_store_address INLINECALLDICT
+    }>
+  }>
+  __tact_address_eq PROCINLINE:<{
+    SDEQ
+  }>
+  __gen_read_Deploy PROCREF:<{
+    32 LDU
+    SWAP
+    2490013878 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    64 LDU
+    SWAP
+  }>
+  __gen_write_DeployOk PROCREF:<{
+    2952335191 PUSHINT
+    ROT
+    32 STU
+    64 STU
+  }>
+  __gen_writecell_DeployOk PROCREF:<{
+    NEWC
+    SWAP
+    __gen_write_DeployOk INLINECALLDICT
+    ENDC
+  }>
+  __gen_read_StoreAddress PROCREF:<{
+    32 LDU
+    SWAP
+    1 EQINT
+    129 THROWIFNOT
+    64 LDU
+    __tact_load_address INLINECALLDICT
+    s1 s2 XCHG
+  }>
+  __gen_read_CallBack PROCREF:<{
+    32 LDU
+    SWAP
+    2 EQINT
+    129 THROWIFNOT
+    64 LDU
+    SWAP
+  }>
+  __gen_write_CallBackResponce PROCREF:<{
+    s3 s4 XCHG2
+    32 STU
+    64 STU
+    SWAP
+    __tact_store_address INLINECALLDICT
+    SWAP
+    __tact_store_address_opt INLINECALLDICT
+  }>
+  __gen_writecell_CallBackResponce PROCREF:<{
+    NEWC
+    4 -ROLL
+    __gen_write_CallBackResponce INLINECALLDICT
+    ENDC
+  }>
+  __gen_write_MemorizerContract PROCREF:<{
+    -ROT
+    __tact_store_address INLINECALLDICT
+    SWAP
+    __tact_store_address_opt INLINECALLDICT
+  }>
+  __gen_read_MemorizerContract PROCREF:<{
+    __tact_load_address INLINECALLDICT
+    SWAP
+    __tact_load_address_opt INLINECALLDICT
+    s1 s2 XCHG
+  }>
+  __gen_Context_get_sender PROCINLINE:<{
+    s2 s3 XCHG
+    3 BLKDROP
+  }>
+  __gen_load_MemorizerContract PROCREF:<{
+    c4 PUSH
+    CTOS
+    LDREF
+    SWAP
+    __tact_context_sys SETGLOB
+    __gen_read_MemorizerContract INLINECALLDICT
+    1 2 BLKDROP2
+  }>
+  __gen_store_MemorizerContract PROCREF:<{
+    NEWC
+    __tact_context_sys GETGLOB
+    SWAP
+    STREF
+    -ROT
+    __gen_write_MemorizerContract INLINECALLDICT
+    ENDC
+    c4 POP
+  }>
+  $send PROC:<{
+    NEWC
+    1 PUSHINT
+    SWAP
+    2 STI
+    s0 s7 XCHG2
+    __tact_store_bool INLINECALLDICT
+    0 PUSHINT
+    SWAP
+    3 STI
+    s0 s5 XCHG2
+    __tact_store_address INLINECALLDICT
+    s0 s3 XCHG2
+    STGRAMS
+    0 PUSHINT
+    SWAP
+    105 STI
+    s3 PUSH
+    ISNULL
+    NOT
+    s5 PUSH
+    ISNULL
+    NOT
+    OR
+    IF:<{
+      TRUE
+      __tact_store_bool INLINECALLDICT
+      NEWC
+      FALSE
+      __tact_store_bool INLINECALLDICT
+      FALSE
+      __tact_store_bool INLINECALLDICT
+      s4 PUSH
+      ISNULL
+      NOT
+      IF:<{
+        TRUE
+        __tact_store_bool INLINECALLDICT
+        s0 s4 XCHG
+        __tact_not_null CALLDICT
+        s0 s4 XCHG2
+        STREF
+      }>ELSE<{
+        s4 POP
+        s0 s3 XCHG
+        FALSE
+        __tact_store_bool INLINECALLDICT
+      }>
+      s4 PUSH
+      ISNULL
+      NOT
+      IF:<{
+        TRUE
+        __tact_store_bool INLINECALLDICT
+        s0 s4 XCHG
+        __tact_not_null CALLDICT
+        s0 s4 XCHG2
+        STREF
+      }>ELSE<{
+        s4 POP
+        s0 s3 XCHG
+        FALSE
+        __tact_store_bool INLINECALLDICT
+      }>
+      FALSE
+      __tact_store_bool INLINECALLDICT
+      s0 s2 XCHG
+      TRUE
+      __tact_store_bool INLINECALLDICT
+      s0 s2 XCHG
+      ENDC
+      ROT
+      STREF
+    }>ELSE<{
+      s3 POP
+      s3 POP
+      SWAP
+      FALSE
+      __tact_store_bool INLINECALLDICT
+    }>
+    OVER
+    ISNULL
+    NOT
+    IF:<{
+      TRUE
+      __tact_store_bool INLINECALLDICT
+      SWAP
+      __tact_not_null CALLDICT
+      SWAP
+      STREF
+    }>ELSE<{
+      NIP
+      FALSE
+      __tact_store_bool INLINECALLDICT
+    }>
+    ENDC
+    SWAP
+    SENDRAWMSG
+  }>
+  $reply PROC:<{
+    __tact_context_get INLINECALLDICT
+    s2 s3 XCHG
+    3 BLKDROP
+    TRUE
+    s0 s2 XCHG
+    0 PUSHINT
+    66 PUSHINT
+    ROT
+    PUSHNULL
+    PUSHNULL
+    $send CALLDICT
+  }>
+  $__gen_MemorizerContract_requireOwner PROC:<{
+    __tact_context_get INLINECALLDICT
+    __gen_Context_get_sender INLINECALLDICT
+    s2 PUSH
+    __tact_address_eq INLINECALLDICT
+    132 THROWIFNOT
+  }>
+  $__gen_MemorizerContract_owner PROC:<{
+    DROP
+  }>
+  $__gen_get_owner PROC:<{
+    __gen_load_MemorizerContract INLINECALLDICT
+    $__gen_MemorizerContract_owner CALLDICT
+  }>
+  $__gen_MemorizerContract_receive_StoreAddress PROC:<{
+    NIP
+    -ROT
+    $__gen_MemorizerContract_requireOwner CALLDICT
+    DROP
+    SWAP
+  }>
+  $__gen_MemorizerContract_receive_CallBack PROC:<{
+    __tact_context_get INLINECALLDICT
+    2DROP
+    3 PUSHINT
+    s2 POP
+    s2 s4 s3 XCPU2
+    __gen_writecell_CallBackResponce INLINECALLDICT
+    TRUE
+    -ROT
+    0 PUSHINT
+    66 PUSHINT
+    ROT
+    PUSHNULL
+    PUSHNULL
+    $send CALLDICT
+  }>
+  $__gen_MemorizerContract_receive_fallback PROC:<{
+    DROP
+    3 THROW
+  }>
+  $__gen_MemorizerContract_receive_Deploy PROC:<{
+    __gen_writecell_DeployOk INLINECALLDICT
+    $reply CALLDICT
+  }>
+  recv_internal PROC:<{
+    0 PUSHINT
+    OVER
+    SBITS
+    31 GTINT
+    IF:<{
+      DROP
+      DUP
+      32 PLDU
+    }>
+    s0 s2 XCHG
+    CTOS
+    4 LDU
+    SWAP
+    1 PUSHINT
+    AND
+    1 EQINT
+    IF:<{
+      TRUE
+    }>ELSE<{
+      FALSE
+    }>
+    SWAP
+    LDMSGADDR
+    s2 PUSH
+    s6 s6 XCHG2
+    4 TUPLE
+    __tact_context SETGLOB
+    s0 s2 XCHG
+    IFJMP:<{
+      2DROP
+    }>
+    DUP
+    1 EQINT
+    IFJMP:<{
+      DROP
+      __gen_load_MemorizerContract INLINECALLDICT
+      s0 s2 XCHG
+      __gen_read_StoreAddress INLINECALLDICT
+      s2 POP
+      s3 s0 s0 XCHG3
+      $__gen_MemorizerContract_receive_StoreAddress CALLDICT
+      __gen_store_MemorizerContract INLINECALLDICT
+    }>
+    DUP
+    2 EQINT
+    IFJMP:<{
+      DROP
+      __gen_load_MemorizerContract INLINECALLDICT
+      s0 s2 XCHG
+      __gen_read_CallBack INLINECALLDICT
+      NIP
+      s1 s2 XCHG
+      $__gen_MemorizerContract_receive_CallBack CALLDICT
+      __gen_store_MemorizerContract INLINECALLDICT
+    }>
+    2490013878 PUSHINT
+    EQUAL
+    IFJMP:<{
+      __gen_load_MemorizerContract INLINECALLDICT
+      s0 s2 XCHG
+      __gen_read_Deploy INLINECALLDICT
+      NIP
+      s1 s2 XCHG
+      $__gen_MemorizerContract_receive_Deploy CALLDICT
+      __gen_store_MemorizerContract INLINECALLDICT
+    }>
+    __gen_load_MemorizerContract INLINECALLDICT
+    ROT
+    $__gen_MemorizerContract_receive_fallback CALLDICT
+    __gen_store_MemorizerContract INLINECALLDICT
+  }>
+  supported_interfaces PROC:<{
+    123515602279859691144772641439386770278 PUSHINT
+    209801025412363888721030803524359905849 PUSHINT
+    86142586315491086060343270784266291122 PUSHINT
+  }>
+  get_abi_ipfs PROC:<{
+    x{697066733a2f2f516d587a7875536f5a4370316b70575132396a4e3879664e4a5965385875546b58574e79795562333836476e437a} PUSHSLICE
+  }>
+}END>c

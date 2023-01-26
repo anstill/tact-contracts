@@ -3,7 +3,7 @@ import { toNano, beginCell } from "ton";
 import { ProxyContract } from "../../output/proxy_ProxyContract";
 import "@ton-community/test-utils";
 
-describe("Contract", () => {
+describe("ProxyContract", () => {
     it("Should work", async () => {
         const blkch = await Blockchain.create();
 

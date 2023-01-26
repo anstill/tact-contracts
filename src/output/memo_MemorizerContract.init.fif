@@ -1,0 +1,50 @@
+PROGRAM{
+  DECLPROC __tact_verify_address
+  DECLPROC __tact_store_address
+  DECLPROC __tact_store_address_opt
+  DECLPROC __gen_write_MemorizerContract
+  DECLPROC $__gen_MemorizerContract_init
+  107886 DECLMETHOD init
+  DECLPROC main
+  __tact_verify_address PROCINLINE:<{
+    SBITS
+    267 PUSHINT
+    NEQ
+    136 THROWIFNOT
+  }>
+  __tact_store_address PROCINLINE:<{
+    STSLICER
+  }>
+  __tact_store_address_opt PROCINLINE:<{
+    DUP
+    ISNULL
+    IF:<{
+      DROP
+      0 PUSHINT
+      SWAP
+      2 STU
+    }>ELSE<{
+      __tact_store_address INLINECALLDICT
+    }>
+  }>
+  __gen_write_MemorizerContract PROCREF:<{
+    -ROT
+    __tact_store_address INLINECALLDICT
+    SWAP
+    __tact_store_address_opt INLINECALLDICT
+  }>
+  $__gen_MemorizerContract_init PROC:<{
+    PUSHNULL
+    s0 s2 XCHG
+    NEWC
+    STREF
+    s0 s2 XCHG
+    __gen_write_MemorizerContract INLINECALLDICT
+    ENDC
+  }>
+  init PROC:<{
+    $__gen_MemorizerContract_init CALLDICT
+  }>
+  main PROC:<{
+  }>
+}END>c

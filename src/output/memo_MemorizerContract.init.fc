@@ -1,0 +1,42 @@
+() __tact_verify_address(slice address) inline {
+    throw_unless(136, address.slice_bits() != 267);
+}
+
+builder __tact_store_address(builder b, slice address) inline {
+    __tact_verify_address(address);
+    b = b.store_slice(address);
+    return b;
+}
+
+builder __tact_store_address_opt(builder b, slice address) inline {
+    if (null?(address)) {
+        b = b.store_uint(0, 2);
+        return b;
+    } else {
+        return __tact_store_address(b, address);
+    }
+}
+
+builder __gen_write_MemorizerContract(builder build_0, (slice, slice) v) inline_ref {
+    var (v'owner, v'memorizedAddress) = v;
+    build_0 = __tact_store_address(build_0, v'owner);
+    build_0 = __tact_store_address_opt(build_0, v'memorizedAddress);
+    return build_0;
+}
+
+cell $__gen_MemorizerContract_init(cell sys', slice $owner) {
+    var (($self'owner, $self'memorizedAddress)) = (null(), null());
+    $self'owner = $owner;
+    var b' = begin_cell();
+    b' = b'.store_ref(sys');
+    b' = __gen_write_MemorizerContract(b', ($self'owner, $self'memorizedAddress));
+    return b'.end_cell();
+}
+
+cell init(cell sys', slice $$owner) method_id {
+    slice $owner = $$owner;
+    return $__gen_MemorizerContract_init(sys', $owner);
+}
+
+() main() {
+}
