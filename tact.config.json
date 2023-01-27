@@ -9,6 +9,11 @@
             "name": "memo",
             "path": "./src/contracts/memorizer/contract.tact",
             "output": "./src/output"
+        }, 
+        {
+            "name": "map",
+            "path": "./src/contracts/hashmap/contract.tact",
+            "output": "./src/output"
         }
     ]
 }

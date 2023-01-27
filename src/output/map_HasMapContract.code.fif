@@ -1,0 +1,481 @@
+PROGRAM{
+  DECLPROC __tact_not_null
+  DECLPROC __tact_context_get
+  DECLPROC __tact_verify_address
+  DECLPROC __tact_store_bool
+  DECLPROC __tact_load_address
+  DECLPROC __tact_store_address
+  DECLPROC __tact_dict_set_int_cell
+  DECLPROC __tact_dict_get_int_cell
+  DECLPROC __gen_read_Deploy
+  DECLPROC __gen_write_DeployOk
+  DECLPROC __gen_writecell_DeployOk
+  DECLPROC __gen_write_Data
+  DECLPROC __gen_writecell_Data
+  DECLPROC __gen_Data_not_null
+  DECLPROC __gen_writecellopt_Data
+  DECLPROC __gen_read_Data
+  DECLPROC __gen_Data_as_optional
+  DECLPROC __gen_readopt_Data
+  DECLPROC __gen_read_Store
+  DECLPROC __gen_read_Delete
+  DECLPROC __gen_write_HasMapContract
+  DECLPROC __gen_read_HasMapContract
+  DECLPROC __gen_Data_to_external
+  DECLPROC __gen_load_HasMapContract
+  DECLPROC __gen_store_HasMapContract
+  DECLPROC $send
+  DECLPROC $reply
+  DECLPROC $__gen_HasMapContract_getKey
+  119659 DECLMETHOD $__gen_get_getKey
+  DECLPROC $__gen_HasMapContract_owner
+  83229 DECLMETHOD $__gen_get_owner
+  DECLPROC $__gen_HasMapContract_receive_Store
+  DECLPROC $__gen_HasMapContract_receive_Delete
+  DECLPROC $__gen_HasMapContract_receive_fallback
+  DECLPROC $__gen_HasMapContract_receive_Deploy
+  DECLPROC recv_internal
+  113617 DECLMETHOD supported_interfaces
+  DECLPROC get_abi_ipfs
+  DECLGLOBVAR __tact_context
+  DECLGLOBVAR __tact_context_sys
+  __tact_not_null PROC:<{
+    DUP
+    ISNULL
+    128 THROWIF
+  }>
+  __tact_context_get PROCINLINE:<{
+    __tact_context GETGLOB
+    4 UNTUPLE
+  }>
+  __tact_verify_address PROCINLINE:<{
+    SBITS
+    267 PUSHINT
+    NEQ
+    136 THROWIFNOT
+  }>
+  __tact_store_bool PROCINLINE:<{
+    SWAP
+    1 STI
+  }>
+  __tact_load_address PROCINLINE:<{
+    LDMSGADDR
+    SWAP
+  }>
+  __tact_store_address PROCINLINE:<{
+    STSLICER
+  }>
+  __tact_dict_set_int_cell PROCINLINE:<{
+    DUP
+    ISNULL
+    IF:<{
+      DROP
+      -ROT
+      DICTIDEL
+      DROP
+    }>ELSE<{
+      s1 s3 s3 XCHG3
+      DICTISETREF
+    }>
+  }>
+  __tact_dict_get_int_cell PROC:<{
+    -ROT
+    DICTIGETREF
+    NULLSWAPIFNOT
+    IFJMP:<{
+    }>
+    DROP
+    PUSHNULL
+  }>
+  __gen_read_Deploy PROCREF:<{
+    32 LDU
+    SWAP
+    2490013878 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    64 LDU
+    SWAP
+  }>
+  __gen_write_DeployOk PROCREF:<{
+    2952335191 PUSHINT
+    ROT
+    32 STU
+    64 STU
+  }>
+  __gen_writecell_DeployOk PROCREF:<{
+    NEWC
+    SWAP
+    __gen_write_DeployOk INLINECALLDICT
+    ENDC
+  }>
+  __gen_write_Data PROCREF:<{
+    s0 s2 XCHG
+    64 STU
+    NEWC
+    ROT
+    STSLICER
+    ENDC
+    SWAP
+    STREF
+  }>
+  __gen_writecell_Data PROCREF:<{
+    NEWC
+    -ROT
+    __gen_write_Data INLINECALLDICT
+    ENDC
+  }>
+  __gen_Data_not_null PROCINLINE:<{
+    DUP
+    ISNULL
+    128 THROWIF
+    2 UNTUPLE
+  }>
+  __gen_writecellopt_Data PROCREF:<{
+    DUP
+    ISNULL
+    IFJMP:<{
+      DROP
+      PUSHNULL
+    }>
+    __gen_Data_not_null INLINECALLDICT
+    __gen_writecell_Data INLINECALLDICT
+  }>
+  __gen_read_Data PROCREF:<{
+    64 LDU
+    LDREF
+    SWAP
+    CTOS
+    s1 s2 XCHG
+  }>
+  __gen_Data_as_optional PROCINLINE:<{
+    2 TUPLE
+  }>
+  __gen_readopt_Data PROCREF:<{
+    DUP
+    ISNULL
+    IFJMP:<{
+      DROP
+      PUSHNULL
+    }>
+    CTOS
+    __gen_read_Data INLINECALLDICT
+    1 2 BLKDROP2
+    __gen_Data_as_optional INLINECALLDICT
+  }>
+  __gen_read_Store PROCREF:<{
+    32 LDU
+    SWAP
+    1 EQINT
+    129 THROWIFNOT
+    64 LDU
+    256 LDU
+    __gen_read_Data INLINECALLDICT
+    s2 s4 XCHG
+    s2 s3 XCHG
+  }>
+  __gen_read_Delete PROCREF:<{
+    32 LDU
+    SWAP
+    2 EQINT
+    129 THROWIFNOT
+    64 LDU
+    SWAP
+  }>
+  __gen_write_HasMapContract PROCREF:<{
+    -ROT
+    __tact_store_address INLINECALLDICT
+    STDICT
+  }>
+  __gen_read_HasMapContract PROCREF:<{
+    __tact_load_address INLINECALLDICT
+    SWAP
+    LDDICT
+    -ROT
+  }>
+  __gen_Data_to_external PROC:<{
+  }>
+  __gen_load_HasMapContract PROCREF:<{
+    c4 PUSH
+    CTOS
+    LDREF
+    SWAP
+    __tact_context_sys SETGLOB
+    __gen_read_HasMapContract INLINECALLDICT
+    1 2 BLKDROP2
+  }>
+  __gen_store_HasMapContract PROCREF:<{
+    NEWC
+    __tact_context_sys GETGLOB
+    SWAP
+    STREF
+    -ROT
+    __gen_write_HasMapContract INLINECALLDICT
+    ENDC
+    c4 POP
+  }>
+  $send PROC:<{
+    NEWC
+    1 PUSHINT
+    SWAP
+    2 STI
+    s0 s7 XCHG2
+    __tact_store_bool INLINECALLDICT
+    0 PUSHINT
+    SWAP
+    3 STI
+    s0 s5 XCHG2
+    __tact_store_address INLINECALLDICT
+    s0 s3 XCHG2
+    STGRAMS
+    0 PUSHINT
+    SWAP
+    105 STI
+    s3 PUSH
+    ISNULL
+    NOT
+    s5 PUSH
+    ISNULL
+    NOT
+    OR
+    IF:<{
+      TRUE
+      __tact_store_bool INLINECALLDICT
+      NEWC
+      FALSE
+      __tact_store_bool INLINECALLDICT
+      FALSE
+      __tact_store_bool INLINECALLDICT
+      s4 PUSH
+      ISNULL
+      NOT
+      IF:<{
+        TRUE
+        __tact_store_bool INLINECALLDICT
+        s0 s4 XCHG
+        __tact_not_null CALLDICT
+        s0 s4 XCHG2
+        STREF
+      }>ELSE<{
+        s4 POP
+        s0 s3 XCHG
+        FALSE
+        __tact_store_bool INLINECALLDICT
+      }>
+      s4 PUSH
+      ISNULL
+      NOT
+      IF:<{
+        TRUE
+        __tact_store_bool INLINECALLDICT
+        s0 s4 XCHG
+        __tact_not_null CALLDICT
+        s0 s4 XCHG2
+        STREF
+      }>ELSE<{
+        s4 POP
+        s0 s3 XCHG
+        FALSE
+        __tact_store_bool INLINECALLDICT
+      }>
+      FALSE
+      __tact_store_bool INLINECALLDICT
+      s0 s2 XCHG
+      TRUE
+      __tact_store_bool INLINECALLDICT
+      s0 s2 XCHG
+      ENDC
+      ROT
+      STREF
+    }>ELSE<{
+      s3 POP
+      s3 POP
+      SWAP
+      FALSE
+      __tact_store_bool INLINECALLDICT
+    }>
+    OVER
+    ISNULL
+    NOT
+    IF:<{
+      TRUE
+      __tact_store_bool INLINECALLDICT
+      SWAP
+      __tact_not_null CALLDICT
+      SWAP
+      STREF
+    }>ELSE<{
+      NIP
+      FALSE
+      __tact_store_bool INLINECALLDICT
+    }>
+    ENDC
+    SWAP
+    SENDRAWMSG
+  }>
+  $reply PROC:<{
+    __tact_context_get INLINECALLDICT
+    s2 s3 XCHG
+    3 BLKDROP
+    TRUE
+    s0 s2 XCHG
+    0 PUSHINT
+    66 PUSHINT
+    ROT
+    PUSHNULL
+    PUSHNULL
+    $send CALLDICT
+  }>
+  $__gen_HasMapContract_getKey PROC:<{
+    1 2 BLKDROP2
+    257 PUSHINT
+    SWAP
+    __tact_dict_get_int_cell CALLDICT
+    __gen_readopt_Data INLINECALLDICT
+    DUP
+    ISNULL
+    IF:<{
+      98 THROW
+    }>
+    __gen_Data_not_null INLINECALLDICT
+  }>
+  $__gen_get_getKey PROC:<{
+    __gen_load_HasMapContract INLINECALLDICT
+    ROT
+    $__gen_HasMapContract_getKey CALLDICT
+    __gen_Data_to_external CALLDICT
+  }>
+  $__gen_HasMapContract_owner PROC:<{
+    DROP
+  }>
+  $__gen_get_owner PROC:<{
+    __gen_load_HasMapContract INLINECALLDICT
+    $__gen_HasMapContract_owner CALLDICT
+  }>
+  $__gen_HasMapContract_receive_Store PROC:<{
+    257 PUSHINT
+    s4 POP
+    __gen_writecell_Data INLINECALLDICT
+    __tact_dict_set_int_cell INLINECALLDICT
+  }>
+  $__gen_HasMapContract_receive_Delete PROC:<{
+    DROP
+    -1 PUSHINT
+    UNTIL:<{
+      OVER
+      8 PUSHPOW2
+      DICTUGETNEXT
+      NULLSWAPIFNOT2
+      s0 s2 XCHG
+      64 LDU
+      DROP
+      s2 PUSH
+      -1 EQINT
+      SWAP
+      NOW
+      LESS
+      AND
+      IF:<{
+        257 PUSHINT
+        PUSHNULL
+        __gen_writecellopt_Data INLINECALLDICT
+        s2 PUSH
+        s3 s5 XCHG
+        SWAP
+        __tact_dict_set_int_cell INLINECALLDICT
+        s0 s2 XCHG
+      }>
+      SWAP
+      -1 NEQINT
+    }>
+    DROP
+  }>
+  $__gen_HasMapContract_receive_fallback PROC:<{
+    DROP
+    1001 THROW
+  }>
+  $__gen_HasMapContract_receive_Deploy PROC:<{
+    __gen_writecell_DeployOk INLINECALLDICT
+    $reply CALLDICT
+  }>
+  recv_internal PROC:<{
+    0 PUSHINT
+    OVER
+    SBITS
+    31 GTINT
+    IF:<{
+      DROP
+      DUP
+      32 PLDU
+    }>
+    s0 s2 XCHG
+    CTOS
+    4 LDU
+    SWAP
+    1 PUSHINT
+    AND
+    1 EQINT
+    IF:<{
+      TRUE
+    }>ELSE<{
+      FALSE
+    }>
+    SWAP
+    LDMSGADDR
+    s2 PUSH
+    s6 s6 XCHG2
+    4 TUPLE
+    __tact_context SETGLOB
+    s0 s2 XCHG
+    IFJMP:<{
+      2DROP
+    }>
+    DUP
+    1 EQINT
+    IFJMP:<{
+      DROP
+      __gen_load_HasMapContract INLINECALLDICT
+      s0 s2 XCHG
+      __gen_read_Store INLINECALLDICT
+      s4 POP
+      s4 s5 XCHG
+      3 ROLL
+      $__gen_HasMapContract_receive_Store CALLDICT
+      __gen_store_HasMapContract INLINECALLDICT
+    }>
+    DUP
+    2 EQINT
+    IFJMP:<{
+      DROP
+      __gen_load_HasMapContract INLINECALLDICT
+      s0 s2 XCHG
+      __gen_read_Delete INLINECALLDICT
+      NIP
+      s1 s2 XCHG
+      $__gen_HasMapContract_receive_Delete CALLDICT
+      __gen_store_HasMapContract INLINECALLDICT
+    }>
+    2490013878 PUSHINT
+    EQUAL
+    IFJMP:<{
+      __gen_load_HasMapContract INLINECALLDICT
+      s0 s2 XCHG
+      __gen_read_Deploy INLINECALLDICT
+      NIP
+      s1 s2 XCHG
+      $__gen_HasMapContract_receive_Deploy CALLDICT
+      __gen_store_HasMapContract INLINECALLDICT
+    }>
+    __gen_load_HasMapContract INLINECALLDICT
+    ROT
+    $__gen_HasMapContract_receive_fallback CALLDICT
+    __gen_store_HasMapContract INLINECALLDICT
+  }>
+  supported_interfaces PROC:<{
+    123515602279859691144772641439386770278 PUSHINT
+    209801025412363888721030803524359905849 PUSHINT
+    86142586315491086060343270784266291122 PUSHINT
+  }>
+  get_abi_ipfs PROC:<{
+    x{697066733a2f2f516d567575516b48524a76736575346954544332767448715858746147706d716a7853614b324c64656e59654548} PUSHSLICE
+  }>
+}END>c

@@ -1,0 +1,33 @@
+() __tact_verify_address(slice address) inline {
+    throw_unless(136, address.slice_bits() != 267);
+}
+
+builder __tact_store_address(builder b, slice address) inline {
+    __tact_verify_address(address);
+    b = b.store_slice(address);
+    return b;
+}
+
+builder __gen_write_HasMapContract(builder build_0, (slice, cell) v) inline_ref {
+    var (v'owner, v'data) = v;
+    build_0 = __tact_store_address(build_0, v'owner);
+    build_0 = build_0.store_dict(v'data);
+    return build_0;
+}
+
+cell $__gen_HasMapContract_init(cell sys', slice $owner) {
+    var (($self'owner, $self'data)) = (null(), null());
+    $self'owner = $owner;
+    var b' = begin_cell();
+    b' = b'.store_ref(sys');
+    b' = __gen_write_HasMapContract(b', ($self'owner, $self'data));
+    return b'.end_cell();
+}
+
+cell init(cell sys', slice $$owner) method_id {
+    slice $owner = $$owner;
+    return $__gen_HasMapContract_init(sys', $owner);
+}
+
+() main() {
+}

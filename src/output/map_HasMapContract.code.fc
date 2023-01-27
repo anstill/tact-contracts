@@ -1,0 +1,330 @@
+forall X -> X __tact_not_null(X x) { throw_if(128, null?(x)); return x; }
+
+global (int, slice, int, slice) __tact_context;
+global cell __tact_context_sys;
+
+(int, slice, int, slice) __tact_context_get() inline { return __tact_context; }
+
+() __tact_verify_address(slice address) inline {
+    throw_unless(136, address.slice_bits() != 267);
+}
+
+builder __tact_store_bool(builder b, int v) inline {
+    b = b.store_int(v, 1);
+    return b;
+}
+
+(slice, slice) __tact_load_address(slice cs) inline {
+    slice raw = cs~load_msg_addr();
+    __tact_verify_address(raw);
+    return (cs, raw);
+}
+
+builder __tact_store_address(builder b, slice address) inline {
+    __tact_verify_address(address);
+    b = b.store_slice(address);
+    return b;
+}
+
+(cell, ()) __tact_dict_set_int_cell(cell d, int kl, int k, cell v) inline {
+    if (null?(v)) {
+        var (r, ok) = idict_delete?(d, kl, k);
+        return (r, ());
+    } else {
+        return (idict_set_ref(d, kl, k, v), ());
+    }
+}
+
+cell __tact_dict_get_int_cell(cell d, int kl, int k) {
+    var (r, ok) = idict_get_ref?(d, kl, k);
+    if (ok) {
+        return r;
+    } else {
+        return null();
+    }
+}
+
+forall X0, X1 -> tuple __tact_tuple_create_2((X0, X1) v) asm "2 TUPLE";
+
+forall X0, X1 -> (X0, X1) __tact_tuple_destroy_2(tuple v) asm "2 UNTUPLE";
+
+(slice, ((int))) __gen_read_Deploy(slice sc_0) inline_ref {
+    throw_unless(129, sc_0~load_uint(32) == 2490013878);
+    var v'queryId = sc_0~load_uint(64);
+    return (sc_0, (v'queryId));
+}
+
+builder __gen_write_DeployOk(builder build_0, (int) v) inline_ref {
+    var (v'queryId) = v;
+    build_0 = store_uint(build_0, 2952335191, 32);
+    build_0 = build_0.store_uint(v'queryId, 64);
+    return build_0;
+}
+
+cell __gen_writecell_DeployOk((int) v) inline_ref {
+    return __gen_write_DeployOk(begin_cell(), v).end_cell();
+}
+
+builder __gen_write_Data(builder build_0, (int, slice) v) inline_ref {
+    var (v'validUntil, v'payload) = v;
+    build_0 = build_0.store_uint(v'validUntil, 64);
+    build_0 = build_0.store_ref(begin_cell().store_slice(v'payload).end_cell());
+    return build_0;
+}
+
+cell __gen_writecell_Data((int, slice) v) inline_ref {
+    return __gen_write_Data(begin_cell(), v).end_cell();
+}
+
+((int, slice)) __gen_Data_not_null(tuple v) inline {
+    throw_if(128, null?(v));
+    var (int vvv'validUntil, slice vvv'payload) = __tact_tuple_destroy_2(v);
+    return (vvv'validUntil, vvv'payload);
+}
+
+cell __gen_writecellopt_Data(tuple v) inline_ref {
+    if (null?(v)) {
+        return null();
+    }
+    return __gen_writecell_Data(__gen_Data_not_null(v));
+}
+
+(slice, ((int, slice))) __gen_read_Data(slice sc_0) inline_ref {
+    var v'validUntil = sc_0~load_uint(64);
+    var v'payload = sc_0~load_ref().begin_parse();
+    return (sc_0, (v'validUntil, v'payload));
+}
+
+tuple __gen_Data_as_optional(((int, slice)) v) inline {
+    var (v'validUntil, v'payload) = v;
+    return __tact_tuple_create_2(v'validUntil, v'payload);
+}
+
+tuple __gen_readopt_Data(cell cl) inline_ref {
+    if (null?(cl)) {
+        return null();
+    }
+    var sc = cl.begin_parse();
+    return __gen_Data_as_optional(sc~__gen_read_Data());
+}
+
+(slice, ((int, int, (int, slice)))) __gen_read_Store(slice sc_0) inline_ref {
+    throw_unless(129, sc_0~load_uint(32) == 1);
+    var v'queryId = sc_0~load_uint(64);
+    var v'key = sc_0~load_uint(256);
+    var v'data = sc_0~__gen_read_Data();
+    return (sc_0, (v'queryId, v'key, v'data));
+}
+
+(slice, ((int))) __gen_read_Delete(slice sc_0) inline_ref {
+    throw_unless(129, sc_0~load_uint(32) == 2);
+    var v'queryId = sc_0~load_uint(64);
+    return (sc_0, (v'queryId));
+}
+
+builder __gen_write_HasMapContract(builder build_0, (slice, cell) v) inline_ref {
+    var (v'owner, v'data) = v;
+    build_0 = __tact_store_address(build_0, v'owner);
+    build_0 = build_0.store_dict(v'data);
+    return build_0;
+}
+
+(slice, ((slice, cell))) __gen_read_HasMapContract(slice sc_0) inline_ref {
+    var v'owner = sc_0~__tact_load_address();
+    var v'data = sc_0~load_dict();
+    return (sc_0, (v'owner, v'data));
+}
+
+(int, slice) __gen_Data_to_external(((int, slice)) v) {
+    var (v'validUntil, v'payload) = v; 
+    return (v'validUntil, v'payload);
+}
+
+(slice, cell) __gen_load_HasMapContract() inline_ref {
+    slice sc = get_data().begin_parse();
+    __tact_context_sys = sc~load_ref();
+    return sc~__gen_read_HasMapContract();
+}
+
+() __gen_store_HasMapContract((slice, cell) v) impure inline_ref {
+    builder b = begin_cell();
+    b = b.store_ref(__tact_context_sys);
+    b = __gen_write_HasMapContract(b, v);
+    set_data(b.end_cell());
+}
+
+() $send((int, slice, int, int, cell, cell, cell) $params) impure {
+    var (($params'bounce, $params'to, $params'value, $params'mode, $params'body, $params'code, $params'data)) = $params;
+    builder $b = begin_cell();
+    $b = store_int($b, 1, 2);
+    $b = __tact_store_bool($b, $params'bounce);
+    $b = store_int($b, 0, 3);
+    $b = __tact_store_address($b, $params'to);
+    $b = store_coins($b, $params'value);
+    $b = store_int($b, 0, ((((1 + 4) + 4) + 64) + 32));
+    if (((~ null?($params'code)) | (~ null?($params'data)))) {
+        $b = __tact_store_bool($b, true);
+        builder $bc = begin_cell();
+        $bc = __tact_store_bool($bc, false);
+        $bc = __tact_store_bool($bc, false);
+        if ((~ null?($params'code))) {
+            $bc = __tact_store_bool($bc, true);
+            $bc = store_ref($bc, __tact_not_null($params'code));
+        } else {
+            $bc = __tact_store_bool($bc, false);
+        }
+        if ((~ null?($params'data))) {
+            $bc = __tact_store_bool($bc, true);
+            $bc = store_ref($bc, __tact_not_null($params'data));
+        } else {
+            $bc = __tact_store_bool($bc, false);
+        }
+        $bc = __tact_store_bool($bc, false);
+        $b = __tact_store_bool($b, true);
+        $b = store_ref($b, end_cell($bc));
+    } else {
+        $b = __tact_store_bool($b, false);
+    }
+    cell $body = $params'body;
+    if ((~ null?($body))) {
+        $b = __tact_store_bool($b, true);
+        $b = store_ref($b, __tact_not_null($body));
+    } else {
+        $b = __tact_store_bool($b, false);
+    }
+    cell $c = end_cell($b);
+    send_raw_message($c, $params'mode);
+}
+
+() $reply(cell $body) impure {
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    $send((true, $ctx'sender, 0, (64 + 2), $body, null(), null()));
+}
+
+(int, slice) $__gen_HasMapContract_getKey((slice, cell) $self, int $key) impure {
+    var (($self'owner, $self'data)) = $self;
+    tuple $data = __gen_readopt_Data(__tact_dict_get_int_cell($self'data, 257, $key));
+    if (null?($data)) {
+        throw(98);
+    }
+    return __gen_Data_not_null($data);
+}
+
+_ $__gen_get_getKey(int $$key) method_id(119659) {
+    int $key = $$key;
+    var self = __gen_load_HasMapContract();
+    var res = $__gen_HasMapContract_getKey(self, $key);
+    return __gen_Data_to_external(res);
+}
+
+slice $__gen_HasMapContract_owner((slice, cell) $self) impure {
+    var (($self'owner, $self'data)) = $self;
+    return $self'owner;
+}
+
+_ $__gen_get_owner() method_id(83229) {
+    var self = __gen_load_HasMapContract();
+    var res = $__gen_HasMapContract_owner(self);
+    return res;
+}
+
+(((slice, cell)), ()) $__gen_HasMapContract_receive_Store((slice, cell) $self, (int, int, (int, slice)) $msg) impure {
+    var ($self'owner, $self'data) = $self;
+    var ($msg'queryId, $msg'key, ($msg'data'validUntil, $msg'data'payload)) = $msg;
+    $self'data~__tact_dict_set_int_cell(257, $msg'key, __gen_writecell_Data(($msg'data'validUntil, $msg'data'payload)));
+    return (($self'owner, $self'data), ());
+}
+
+(((slice, cell)), ()) $__gen_HasMapContract_receive_Delete((slice, cell) $self, (int) $msg) impure {
+    var ($self'owner, $self'data) = $self;
+    var ($msg'queryId) = $msg;
+    int $key = (- 1);
+    int $flag = 0;
+    do {
+        var ($nextKey'key, $nextKey'cs, $nextKey'f) = udict_get_next?($self'data, 256, $key);
+        $key = $nextKey'key;
+        $flag = $nextKey'f;
+        int $validUntil = $nextKey'cs~load_uint(64);
+        if ((($flag == (- 1)) & ($validUntil < now()))) {
+            $self'data~__tact_dict_set_int_cell(257, $key, __gen_writecellopt_Data(null()));
+        }
+    } until (($flag != (- 1)));
+    return (($self'owner, $self'data), ());
+}
+
+((slice, cell), ()) $__gen_HasMapContract_receive_fallback((slice, cell) $self, slice $msg) impure {
+    var ($self'owner, $self'data) = $self;
+    throw(1001);
+    return (($self'owner, $self'data), ());
+}
+
+(((slice, cell)), ()) $__gen_HasMapContract_receive_Deploy((slice, cell) $self, (int) $deploy) impure {
+    var ($self'owner, $self'data) = $self;
+    var ($deploy'queryId) = $deploy;
+    $reply(__gen_writecell_DeployOk(($deploy'queryId)));
+    return (($self'owner, $self'data), ());
+}
+
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = ((msg_flags & 1) == 1 ? true : false);
+    slice msg_sender_addr = cs~load_msg_addr();
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return ();
+    }
+    
+    ;; Receive Store message
+    if (op == 1) {
+        var self = __gen_load_HasMapContract();
+        var msg = in_msg~__gen_read_Store();
+        self~$__gen_HasMapContract_receive_Store(msg);
+        __gen_store_HasMapContract(self);
+        return ();
+    }
+    
+    ;; Receive Delete message
+    if (op == 2) {
+        var self = __gen_load_HasMapContract();
+        var msg = in_msg~__gen_read_Delete();
+        self~$__gen_HasMapContract_receive_Delete(msg);
+        __gen_store_HasMapContract(self);
+        return ();
+    }
+    
+    ;; Receive Deploy message
+    if (op == 2490013878) {
+        var self = __gen_load_HasMapContract();
+        var msg = in_msg~__gen_read_Deploy();
+        self~$__gen_HasMapContract_receive_Deploy(msg);
+        __gen_store_HasMapContract(self);
+        return ();
+    }
+    
+    ;; Receiver fallback
+    var self = __gen_load_HasMapContract();
+    self~$__gen_HasMapContract_receive_fallback(in_msg);
+    __gen_store_HasMapContract(self);
+}
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.ownable"H >> 128
+    );
+}
+
+_ get_abi_ipfs() {
+    return "ipfs://QmVuuQkHRJvseu4iTTC2vtHqXXtaGpmqjxSaK2LdenYeEH";
+}
