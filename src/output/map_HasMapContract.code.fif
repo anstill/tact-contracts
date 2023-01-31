@@ -168,7 +168,8 @@ PROGRAM{
     1 EQINT
     129 THROWIFNOT
     64 LDU
-    256 LDU
+    257 PUSHINT
+    LDIX
     __gen_read_Data INLINECALLDICT
     s2 s4 XCHG
     s2 s3 XCHG
@@ -362,27 +363,32 @@ PROGRAM{
     -1 PUSHINT
     UNTIL:<{
       OVER
-      8 PUSHPOW2
-      DICTUGETNEXT
+      257 PUSHINT
+      DICTIGETNEXT
       NULLSWAPIFNOT2
-      s0 s2 XCHG
-      64 LDU
-      DROP
-      s2 PUSH
+      s2 POP
+      OVER
       -1 EQINT
-      SWAP
-      NOW
-      LESS
-      AND
       IF:<{
-        257 PUSHINT
-        PUSHNULL
-        __gen_writecellopt_Data INLINECALLDICT
         s2 PUSH
-        s3 s5 XCHG
-        SWAP
-        __tact_dict_set_int_cell INLINECALLDICT
-        s0 s2 XCHG
+        257 PUSHINT
+        s2 PUSH
+        __tact_dict_get_int_cell CALLDICT
+        __gen_readopt_Data INLINECALLDICT
+        __gen_Data_not_null INLINECALLDICT
+        DROP
+        NOW
+        LESS
+        IF:<{
+          257 PUSHINT
+          PUSHNULL
+          __gen_writecellopt_Data INLINECALLDICT
+          s2 PUSH
+          s3 s5 XCHG
+          SWAP
+          __tact_dict_set_int_cell INLINECALLDICT
+          s0 s2 XCHG
+        }>
       }>
       SWAP
       -1 NEQINT
@@ -476,6 +482,6 @@ PROGRAM{
     86142586315491086060343270784266291122 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d567575516b48524a76736575346954544332767448715858746147706d716a7853614b324c64656e59654548} PUSHSLICE
+    x{697066733a2f2f516d505838375a67425370694a43795334356561393146614752363434517a375a4834736a55753833786e457541} PUSHSLICE
   }>
 }END>c

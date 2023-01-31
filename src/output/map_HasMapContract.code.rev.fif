@@ -62,7 +62,8 @@ SETCP0
         1 EQINT
         129 THROWIFNOT
         64 LDU
-        256 LDU
+        257 PUSHINT
+        LDI
         <{
           64 LDU
           LDREF
@@ -440,21 +441,17 @@ SETCP0
     -1 PUSHINT
     <{
       s1 PUSH
-      8 PUSHPOW2
-      DICTUGETNEXT
+      257 PUSHINT
+      DICTIGETNEXT
       NULLSWAPIFNOT2
-      s0 s2 XCHG
-      64 LDU
-      s0 POP
-      s2 PUSH
+      s2 POP
+      s1 PUSH
       -1 EQINT
-      s0 s1 XCHG
-      NOW
-      LESS
-      AND
       <{
+        s2 PUSH
         257 PUSHINT
-        PUSHNULL
+        s2 PUSH
+        8 CALLDICT
         <{
           s0 PUSH
           ISNULL
@@ -463,43 +460,74 @@ SETCP0
             PUSHNULL
           }> PUSHCONT
           IFJMP
-          s0 PUSH
-          ISNULL
-          128 THROWIF
-          2 UNTUPLE
+          CTOS
           <{
-            NEWC
-            ROTREV
-            <{
-              s0 s2 XCHG
-              64 STU
-              NEWC
-              ROT
-              STSLICER
-              ENDC
-              s0 s1 XCHG
-              STREF
-            }> CALLREF
-            ENDC
+            64 LDU
+            LDREF
+            s0 s1 XCHG
+            CTOS
+            s1 s2 XCHG
           }> CALLREF
+          1 2 BLKDROP2
+          PAIR
         }> CALLREF
-        s2 PUSH
-        s3 s5 XCHG
-        s0 s1 XCHG
         s0 PUSH
         ISNULL
+        128 THROWIF
+        2 UNTUPLE
+        s0 POP
+        NOW
+        LESS
         <{
-          s0 POP
-          ROTREV
-          DICTIDEL
-          s0 POP
+          257 PUSHINT
+          PUSHNULL
+          <{
+            s0 PUSH
+            ISNULL
+            <{
+              s0 POP
+              PUSHNULL
+            }> PUSHCONT
+            IFJMP
+            s0 PUSH
+            ISNULL
+            128 THROWIF
+            2 UNTUPLE
+            <{
+              NEWC
+              ROTREV
+              <{
+                s0 s2 XCHG
+                64 STU
+                NEWC
+                ROT
+                STSLICER
+                ENDC
+                s0 s1 XCHG
+                STREF
+              }> CALLREF
+              ENDC
+            }> CALLREF
+          }> CALLREF
+          s2 PUSH
+          s3 s5 XCHG
+          s0 s1 XCHG
+          s0 PUSH
+          ISNULL
+          <{
+            s0 POP
+            ROTREV
+            DICTIDEL
+            s0 POP
+          }> PUSHCONT
+          <{
+            s1 s3 s3 XCHG3
+            DICTISETREF
+          }> PUSHCONT
+          IFELSE
+          s0 s2 XCHG
         }> PUSHCONT
-        <{
-          s1 s3 s3 XCHG3
-          DICTISETREF
-        }> PUSHCONT
-        IFELSE
-        s0 s2 XCHG
+        IF
       }> PUSHCONT
       IF
       s0 s1 XCHG

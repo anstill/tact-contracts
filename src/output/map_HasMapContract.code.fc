@@ -111,7 +111,7 @@ tuple __gen_readopt_Data(cell cl) inline_ref {
 (slice, ((int, int, (int, slice)))) __gen_read_Store(slice sc_0) inline_ref {
     throw_unless(129, sc_0~load_uint(32) == 1);
     var v'queryId = sc_0~load_uint(64);
-    var v'key = sc_0~load_uint(256);
+    var v'key = sc_0~load_int(257);
     var v'data = sc_0~__gen_read_Data();
     return (sc_0, (v'queryId, v'key, v'data));
 }
@@ -241,12 +241,14 @@ _ $__gen_get_owner() method_id(83229) {
     int $key = (- 1);
     int $flag = 0;
     do {
-        var ($nextKey'key, $nextKey'cs, $nextKey'f) = udict_get_next?($self'data, 256, $key);
+        var ($nextKey'key, $nextKey'cs, $nextKey'f) = idict_get_next?($self'data, 257, $key);
         $key = $nextKey'key;
         $flag = $nextKey'f;
-        int $validUntil = $nextKey'cs~load_uint(64);
-        if ((($flag == (- 1)) & ($validUntil < now()))) {
-            $self'data~__tact_dict_set_int_cell(257, $key, __gen_writecellopt_Data(null()));
+        if (($flag == (- 1))) {
+            var ($d'validUntil, $d'payload) = __gen_Data_not_null(__gen_readopt_Data(__tact_dict_get_int_cell($self'data, 257, $key)));
+            if (($d'validUntil < now())) {
+                $self'data~__tact_dict_set_int_cell(257, $key, __gen_writecellopt_Data(null()));
+            }
         }
     } until (($flag != (- 1)));
     return (($self'owner, $self'data), ());
@@ -326,5 +328,5 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmVuuQkHRJvseu4iTTC2vtHqXXtaGpmqjxSaK2LdenYeEH";
+    return "ipfs://QmPX87ZgBSpiJCyS45ea91FaGR644Qz7ZH4sjUu83xnEuA";
 }

@@ -13,10 +13,13 @@ describe("HasMapContract", () => {
         const contract = blkch.openContract(await HasMapContract.fromInit(owner.address));
 
         let key = 44n;
-        let validUntil = 1674842778n;
+        let keyToDelete = 45n;
+        let validUntilFuture = BigInt(Math.trunc(Date.now() / 1000) + 86400); // +1 day from now
+        let validUntilPast = BigInt(Math.trunc(Date.now() / 1000) - 86400); // -1 day from now
+
         let payload = beginCell().storeAddress(nonOwner.address).endCell();
 
-        let StoreValueRes = await contract.send(
+        let StoreKey = await contract.send(
             owner.getSender(),
             { value: toNano(1) },
             {
@@ -25,13 +28,35 @@ describe("HasMapContract", () => {
                 key,
                 data: {
                     $$type: "Data",
-                    validUntil,
+                    validUntil: validUntilFuture,
                     payload,
                 },
             }
         );
 
-        expect(StoreValueRes.transactions).toHaveTransaction({
+        let StoreKeyToDelete = await contract.send(
+            owner.getSender(),
+            { value: toNano(1) },
+            {
+                $$type: "Store",
+                queryId: 12n,
+                key: keyToDelete,
+                data: {
+                    $$type: "Data",
+                    validUntil: validUntilPast,
+                    payload,
+                },
+            }
+        );
+
+        expect(StoreKey.transactions).toHaveTransaction({
+            from: owner.address,
+            to: contract.address,
+            value: toNano(1),
+            success: true,
+        });
+
+        expect(StoreKeyToDelete.transactions).toHaveTransaction({
             from: owner.address,
             to: contract.address,
             value: toNano(1),
@@ -40,7 +65,7 @@ describe("HasMapContract", () => {
 
         let result = await contract.getGetKey(key);
 
-        expect(result.validUntil).toEqual(validUntil);
+        expect(result.validUntil).toEqual(validUntilFuture);
         expect(result.payload.toString()).toEqual(payload.toString());
 
         let DeleteValueRes = await contract.send(
@@ -58,5 +83,7 @@ describe("HasMapContract", () => {
             value: toNano(1),
             success: true,
         });
+
+        await expect(contract.getGetKey(keyToDelete)).rejects.toThrow();
     });
 });

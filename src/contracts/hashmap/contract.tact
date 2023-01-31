@@ -4,7 +4,7 @@ import "@stdlib/ownable";
 
 message(0x1) Store {
     queryId:  Int as uint64;
-    key: Int as uint256;
+    key: Int;
     data: Data;
 }
 
@@ -23,7 +23,8 @@ message(0x2) Delete {
     queryId:  Int as uint64;
 }
 
-@name(udict_get_next?)
+
+@name(idict_get_next?)
 native mapGetNext(map: map[Int]Data, keyLen: Int, pivot: Int): DataRaw;
 
 
@@ -47,15 +48,18 @@ contract HasMapContract with Deployable, Ownable {
         let flag: Int = 0;
 
         do {
-            let nextKey: DataRaw = mapGetNext(self.data, 256, key);
+            let nextKey: DataRaw = mapGetNext(self.data, 257, key);
             key = nextKey.key;
             flag = nextKey.f;
 
-            let validUntil: Int = nextKey.cs.loadUint(64);
+            if(flag == -1) {
+                let d: Data = self.data.get(key)!!;
 
-            if (flag == -1 && validUntil < now()) {
-                self.data.set(key, null);
+                if(d.validUntil < now()) {
+                    self.data.set(key, null);
+                }
             }
+
         } until(flag != -1);
     }
 

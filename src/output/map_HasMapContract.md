@@ -1,6 +1,6 @@
 # TACT Compilation Report
 Contract: HasMapContract
-BOC Size: 807 bytes
+BOC Size: 827 bytes
 
 # Types
 Total Types: 10
@@ -30,8 +30,8 @@ TLB: `change_owner#0f474d03 newOwner:address = ChangeOwner`
 Signature: `ChangeOwner{newOwner:address}`
 
 ## Store
-TLB: `store#00000001 queryId:uint64 key:uint256 data:Data{validUntil:uint64,payload:^slice} = Store`
-Signature: `Store{queryId:uint64,key:uint256,data:Data{validUntil:uint64,payload:^slice}}`
+TLB: `store#00000001 queryId:uint64 key:int257 data:Data{validUntil:uint64,payload:^slice} = Store`
+Signature: `Store{queryId:uint64,key:int257,data:Data{validUntil:uint64,payload:^slice}}`
 
 ## Data
 TLB: `_ validUntil:uint64 payload:^slice = Data`
