@@ -10,7 +10,7 @@ message(0x1) Store {
 
 struct Data {
     validUntil: Int as uint64;
-    payload: Slice;
+    payload: Slice as remaining;
 }
 
 struct DataRaw {

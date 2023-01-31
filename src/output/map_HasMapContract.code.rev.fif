@@ -66,10 +66,7 @@ SETCP0
         LDI
         <{
           64 LDU
-          LDREF
-          s0 s1 XCHG
-          CTOS
-          s1 s2 XCHG
+          TUCK
         }> CALLREF
         s2 s4 XCHG
         s2 s3 XCHG
@@ -382,10 +379,7 @@ SETCP0
       CTOS
       <{
         64 LDU
-        LDREF
-        s0 s1 XCHG
-        CTOS
-        s1 s2 XCHG
+        TUCK
       }> CALLREF
       1 2 BLKDROP2
       PAIR
@@ -413,12 +407,8 @@ SETCP0
       <{
         s0 s2 XCHG
         64 STU
-        NEWC
-        ROT
-        STSLICER
-        ENDC
         s0 s1 XCHG
-        STREF
+        STSLICER
       }> CALLREF
       ENDC
     }> CALLREF
@@ -463,10 +453,7 @@ SETCP0
           CTOS
           <{
             64 LDU
-            LDREF
-            s0 s1 XCHG
-            CTOS
-            s1 s2 XCHG
+            TUCK
           }> CALLREF
           1 2 BLKDROP2
           PAIR
@@ -499,12 +486,8 @@ SETCP0
               <{
                 s0 s2 XCHG
                 64 STU
-                NEWC
-                ROT
-                STSLICER
-                ENDC
                 s0 s1 XCHG
-                STREF
+                STSLICER
               }> CALLREF
               ENDC
             }> CALLREF

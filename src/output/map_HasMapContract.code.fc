@@ -68,7 +68,7 @@ cell __gen_writecell_DeployOk((int) v) inline_ref {
 builder __gen_write_Data(builder build_0, (int, slice) v) inline_ref {
     var (v'validUntil, v'payload) = v;
     build_0 = build_0.store_uint(v'validUntil, 64);
-    build_0 = build_0.store_ref(begin_cell().store_slice(v'payload).end_cell());
+    build_0 = build_0.store_slice(v'payload);
     return build_0;
 }
 
@@ -91,7 +91,7 @@ cell __gen_writecellopt_Data(tuple v) inline_ref {
 
 (slice, ((int, slice))) __gen_read_Data(slice sc_0) inline_ref {
     var v'validUntil = sc_0~load_uint(64);
-    var v'payload = sc_0~load_ref().begin_parse();
+    var v'payload = sc_0;
     return (sc_0, (v'validUntil, v'payload));
 }
 
@@ -328,5 +328,5 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmPX87ZgBSpiJCyS45ea91FaGR644Qz7ZH4sjUu83xnEuA";
+    return "ipfs://QmUh5Lir9NAfDKQLLUnaQpLmDTpZpgALG7rvGeuepMoZCM";
 }

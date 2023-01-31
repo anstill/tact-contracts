@@ -84,6 +84,6 @@ describe("HasMapContract", () => {
             success: true,
         });
 
-        await expect(contract.getGetKey(keyToDelete)).rejects.toThrow();
+        await expect(contract.getGetKey(keyToDelete)).rejects.toThrow("EOF");
     });
 });
