@@ -2869,10 +2869,10 @@ ton-emulator@^1.3.0:
     teslabot "^1.5.0"
     zod "^3.20.2"
 
-ton-tact@0.8.10:
-  version "0.8.10"
-  resolved "https://registry.yarnpkg.com/ton-tact/-/ton-tact-0.8.10.tgz#81497d350038f1f06cb53f645db9570b01ad9356"
-  integrity sha512-+MzjFkpVnS9NviulTWnrzGXYkuhX06yTWHS/FUfAQBG980V7e/kerGmW/bjWzRy3DZ8bcWOGe5Wq0JZOrohWFw==
+ton-tact@0.8.11:
+  version "0.8.11"
+  resolved "https://registry.yarnpkg.com/ton-tact/-/ton-tact-0.8.11.tgz#e348eafe1d0d85819814e53cddf21e28c082e8db"
+  integrity sha512-5RtWnNbKM6f/Z8ixbgTubmCMTRdzLILCdW2NYf+b1XFd6ImXMm47lQNosuF+alCdWzfwX0E+KQSbqRSK41AJsA==
   dependencies:
     "@ipld/dag-pb" "2.1.18"
     "@types/tmp" "^0.2.3"

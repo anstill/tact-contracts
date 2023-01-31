@@ -392,7 +392,7 @@ export function storeCallBackResponce(src: CallBackResponce) {
         b_0.storeUint(src.op, 32);
         b_0.storeUint(src.queryId, 64);
         b_0.storeAddress(src.owner);
-        if (src.memorizedAddress !== null && src.memorizedAddress !== undefined) { b_0.storeBit(true).storeAddress(src.memorizedAddress); } else { b_0.storeBit(false); }
+        b_0.storeAddress(src.memorizedAddress);
     };
 }
 
@@ -401,7 +401,7 @@ export function loadCallBackResponce(slice: Slice) {
     let _op = sc_0.loadUintBig(32);
     let _queryId = sc_0.loadUintBig(64);
     let _owner = sc_0.loadAddress();
-    let _memorizedAddress = sc_0.loadBit() ? sc_0.loadAddress() : null;
+    let _memorizedAddress = sc_0.loadMaybeAddress();
     return { $$type: 'CallBackResponce' as const, op: _op, queryId: _queryId, owner: _owner, memorizedAddress: _memorizedAddress };
 }
 
